@@ -1,6 +1,6 @@
 import React from 'react'
 import { Spin, Form, Icon, Button, Row, Col, Tabs, message } from 'antd'
-import CInput from '@/components/common/clearableInput'
+import CInput from '@/components/common/ClearableInput'
 import styles from '@/stylus/login'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
