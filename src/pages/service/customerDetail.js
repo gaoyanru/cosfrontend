@@ -3,7 +3,7 @@ import { Tabs, Table, Button } from 'antd'
 import { fDate, fMainTaskStatus, fSubTaskStatus, fOutworkStatus, fContractStatus } from '@/utils/filters'
 import styles from '@/stylus/serviceCard'
 import CusDetail1 from '@/containers/service/cusDetail1'
-import Modal from '@/components/common/modal'
+import Modal from '@/components/common/Modal'
 const TabPane = Tabs.TabPane
 export default class CustomerDetail extends React.Component {
   constructor (props) {
