@@ -15,7 +15,7 @@ class UsersAccount extends React.Component {
     this.accreditUser = this.accreditUser.bind(this)
     this.addNew = this.addNew.bind(this)
     console.log(this.props, 'props')
-    // this.props.dispatch(fetchListAction())
+    this.props.dispatch(fetchListAction())
   }
   onSearch (res) {
     console.log(res)

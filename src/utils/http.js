@@ -43,6 +43,14 @@ $(document).ajaxError((event, response, settings) => {
     break
   default:
     if (responseJSON instanceof Object) {
+      if (response.responseJSON.errorcode === '403') {
+        store.dispatch({
+          type: 'change login status',
+          payload: {
+            loginStat: 'out'
+          }
+        })
+      }
       msgConf = {
         title: '请求出错',
         message: response.responseJSON.message

@@ -15,3 +15,7 @@ export const fetchWechatUserInfoAction = (cb) => (dispatch) => {
     }
   })
 }
+
+export const changeLoginStat = (stat) => (dispatch) => {
+  dispatch(createAction('change login status')(stat))
+}

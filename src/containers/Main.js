@@ -1,7 +1,9 @@
 import React from 'react'
 import styles from '@/stylus/main'
 import { Layout, Menu, Icon, Dropdown, Avatar, Breadcrumb } from 'antd'
+import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import ClassNames from 'classnames'
 import PageHeader from '@/components/common/PageHeader'
 import GlobalHeader from '@/components/common/globalHeader'
@@ -16,6 +18,12 @@ class Main extends React.Component {
       isShowThirdMenu: false
     }
     this.handleMenuCollapse = this.handleMenuCollapse.bind(this)
+  }
+  componentWillReceiveProps (props) {
+    console.log(props, 'main')
+    if (props.loginStat === 'out') {
+      this.props.history.push('/login')
+    }
   }
   handleMenuCollapse () {
     this.setState({
@@ -73,4 +81,6 @@ class Main extends React.Component {
     )
   }
 }
-export default Main
+export default connect((state) => {
+  return state.common
+})(withRouter(Main))

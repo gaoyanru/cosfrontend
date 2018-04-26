@@ -16,6 +16,7 @@ class GlobalHeader extends React.Component {
   }
   onMenuClick ({ key }) {
     console.log(key)
+    sessionStorage.removeItem('token')
     if (key === 'logout') {
       this.props.history.push('/login')
     }

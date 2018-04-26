@@ -2,8 +2,10 @@ import React from 'react'
 import { Spin, Form, Icon, Button, Row, Col, Tabs, message } from 'antd'
 import CInput from '@/components/common/clearableInput'
 import styles from '@/stylus/login'
-import { Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router'
+import { connect } from 'react-redux'
 import { requestLogin } from '@/utils/api'
+import { changeLoginStat } from '@/actions/common'
 const FormItem = Form.Item
 
 class Login extends React.Component {
@@ -24,10 +26,13 @@ class Login extends React.Component {
         requestLogin(values).then(loginRes => {
           if (loginRes.status) {
             sessionStorage.setItem('token', loginRes.data.Token)
+            sessionStorage.setItem('userInfo', JSON.stringify(loginRes.data))
+            this.props.dispatch(changeLoginStat('in'))
             this.setState({
               loading: true,
               isLogin: true
             })
+            this.props.history.push('/customer')
           } else {
             this.setState({
               loading: false,
@@ -39,11 +44,6 @@ class Login extends React.Component {
     })
   }
   render () {
-    if (this.state.isLogin) {
-      return (
-        <Redirect to={'/customer'} />
-      )
-    }
     const { getFieldDecorator } = this.props.form
     return (
       <div className={styles.login}>
@@ -93,4 +93,4 @@ class Login extends React.Component {
     )
   }
 }
-export default Form.create()(Login)
+export default connect()(Form.create()(withRouter(Login)))

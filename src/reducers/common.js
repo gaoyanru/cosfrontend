@@ -12,7 +12,14 @@ export default handleActions({
       ...state,
       ajaxCount: state.ajaxCount - 1
     }
+  },
+  'change login status': (state, { payload }) => {
+    return {
+      ...state,
+      loginStat: payload.loginStat // in or out
+    }
   }
 }, {
-  ajaxCount: 0
+  ajaxCount: 0,
+  loginStat: 'in'
 })
