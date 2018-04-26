@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import ClassNames from 'classnames'
 import PageHeader from '@/components/common/PageHeader'
-import GlobalHeader from '@/components/common/globalHeader'
-import LeftMenu from '@/components/common/leftMenu'
+import GlobalHeader from '@/components/common/GlobalHeader'
+import LeftMenu from '@/components/common/LeftMenu'
 const { Header, Sider, Content } = Layout
 
 class Main extends React.Component {
