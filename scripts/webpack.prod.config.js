@@ -63,17 +63,17 @@ var plugins = [
   new webpack.NoEmitOnErrorsPlugin(),
   extractCommon,
   extractApp,
-  new Visualizer(),
-  new webpackUploadPlugin({
-    path: path.resolve(__dirname, '../deploy/dist'),
-    aliOSS: {
-        region: process.env.REGION,
-        accessKeyId: process.env.ACCESS_KEY_ID,
-        accessKeySecret: process.env.ACCESS_KEY_SECRET,
-        bucket: process.env.BUCKET,
-        fileDir: process.env.FILE_DIR
-    }
-  })
+  new Visualizer()
+  // new webpackUploadPlugin({
+  //   path: path.resolve(__dirname, '../deploy/dist'),
+  //   aliOSS: {
+  //       region: process.env.REGION,
+  //       accessKeyId: process.env.ACCESS_KEY_ID,
+  //       accessKeySecret: process.env.ACCESS_KEY_SECRET,
+  //       bucket: process.env.BUCKET,
+  //       fileDir: process.env.FILE_DIR
+  //   }
+  // })
 ]
 
 module.exports = {
