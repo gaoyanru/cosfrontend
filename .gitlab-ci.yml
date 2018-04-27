@@ -14,8 +14,10 @@ cache:
 before_script:
   - yarn install
 test:
+  image: registry.i-counting.cn/pilipa/karma
   script:
     - npm run test
-build:
+build: registry.i-counting.cn/pilipa/cos-frontend
+  image: 
   script:
     - npm run build

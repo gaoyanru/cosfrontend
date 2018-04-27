@@ -3,6 +3,7 @@ import { Tabs, Table, Button } from 'antd'
 import { fDate, fMainTaskStatus, fSubTaskStatus, fOutworkStatus, fContractStatus } from '@/utils/filters'
 import styles from '@/stylus/serviceCard'
 import CusDetail1 from '@/containers/service/cusDetail1'
+import ModalTable from '@/containers/customer/ModalTable'
 import Modal from '@/components/common/Modal'
 import { fetchCustomerServiceDetail, fetchCustomerServiceOrderDetail, fetchCustomerServiceOutworkDetail, fetchOrderDetail, fetchOutworkDetail, fetchAgentDetail } from '@/utils/api'
 const TabPane = Tabs.TabPane
@@ -16,7 +17,8 @@ export default class CustomerDetail extends React.Component {
       tabData1: {},
       tabData2: [],
       tabData3: [],
-      tabData4: []
+      tabData4: [],
+      ChildTaskData: []
     }
     this.callback = this.callback.bind(this)
     this.viewOrder = this.viewOrder.bind(this)
@@ -39,7 +41,6 @@ export default class CustomerDetail extends React.Component {
       this.setState({
         params: params
       })
-      this.state.item.Id = '101553008'
       fetchCustomerServiceDetail(this.state.item.Id, params).then(res => {
         if (res.status) {
           this.setState({
@@ -54,7 +55,6 @@ export default class CustomerDetail extends React.Component {
     this.setState({
       curKey: key
     })
-    this.state.item.Id = '101553008'
     if (key === '3') {
       fetchCustomerServiceOrderDetail(this.state.item.Id, this.state.params).then(res => {
         if (res.status) {
@@ -86,12 +86,6 @@ export default class CustomerDetail extends React.Component {
     this.props.history.go(-1)
   }
   viewOrder (record) {
-    let OrderModalData = []
-    fetchOrderDetail(record.OrderId).then(res => {
-      if (res.status) {
-        OrderModalData = res.data.list
-      }
-    })
     const orderModalcolumns = [{
       title: '合同ID',
       dataIndex: 'ContractNo'
@@ -120,11 +114,11 @@ export default class CustomerDetail extends React.Component {
     }]
     const modal = Modal.show({
       content: (
-        <Table
-          rowKey={record => (record.ContractNo)}
-          dataSource={OrderModalData}
+        <ModalTable
+          type='order'
+          Id={record.OrderId}
+          params={this.state.params}
           columns={orderModalcolumns}
-          pagination={false}
         />
       ),
       title: '合同详情',
@@ -139,12 +133,6 @@ export default class CustomerDetail extends React.Component {
     })
   }
   viewChildTask (record) {
-    let ChildTaskData = []
-    fetchOutworkDetail(record.Id).then(res => {
-      if (res.status) {
-        ChildTaskData = res.data.list
-      }
-    })
     const ChildTaskcolumns = [{
       title: '合同ID',
       dataIndex: 'ContractNo'
@@ -169,11 +157,11 @@ export default class CustomerDetail extends React.Component {
     }]
     const modal = Modal.show({
       content: (
-        <Table
-          rowKey={record => (record.ContractNo)}
-          dataSource={ChildTaskData}
+        <ModalTable
+          type='childTask'
+          Id={record.Id}
+          params={this.state.params}
           columns={ChildTaskcolumns}
-          pagination={false}
         />
       ),
       title: '子任务',
@@ -222,10 +210,10 @@ export default class CustomerDetail extends React.Component {
         return (
           <span>
             {
-              (this.state.item.systemflag === 1) && <a onClick={e => { this.viewOrder(record) }}>合同</a>
+              (this.state.item.CusType === 1) && <a onClick={e => { this.viewOrder(record) }}>合同</a>
             }
             {
-              (this.state.item.systemflag === 2) && <a style={{ cursor: 'not-allowed' }}>合同</a>
+              (this.state.item.CusType === 2) && <a style={{ cursor: 'not-allowed' }}>合同</a>
             }
           </span>
         )
@@ -259,10 +247,10 @@ export default class CustomerDetail extends React.Component {
         return (
           <span>
             {
-              (this.state.item.systemflag === 1) && <a onClick={e => { this.viewChildTask(record) }}>子任务</a>
+              (this.state.item.CusType === 1) && <a onClick={e => { this.viewChildTask(record) }}>子任务</a>
             }
             {
-              (this.state.item.systemflag === 2) && <a style={{ cursor: 'not-allowed' }}>子任务</a>
+              (this.state.item.CusType === 2) && <a style={{ cursor: 'not-allowed' }}>子任务</a>
             }
           </span>
         )

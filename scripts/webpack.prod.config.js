@@ -12,7 +12,7 @@ const extractApp = new ExtractTextPlugin({
   filename: 'css/app.[contenthash:8].css',
   allChunks: true
 })
-
+console.log(path.resolve(__dirname, '../deploy/dist'))
 var plugins = [
   new webpack.DefinePlugin({
     'process.env': {
