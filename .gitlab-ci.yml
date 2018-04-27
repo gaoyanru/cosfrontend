@@ -17,7 +17,7 @@ test:
   image: registry.i-counting.cn/pilipa/karma
   script:
     - npm run test
-build: registry.i-counting.cn/pilipa/cos-frontend
-  image: 
+build:
+  image: registry.i-counting.cn/pilipa/cos-frontend
   script:
     - npm run build
