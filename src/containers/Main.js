@@ -45,7 +45,7 @@ class Main extends React.Component {
       RealName: 'kefu'
     }
     const menuList = {
-      menuParent: '客服',
+      menuParent: '客服中心',
       children: '客户',
       child: ''
     }

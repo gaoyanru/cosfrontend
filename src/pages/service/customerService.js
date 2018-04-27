@@ -91,7 +91,7 @@ class CustomerService extends React.Component {
                   <Row>
                     <Col span={12}>
                       <label>订单数量：</label>
-                      <span>{item.Orders}</span>
+                      <span>{item.OrderNum}</span>
                     </Col>
                   </Row>
                 </Card>
