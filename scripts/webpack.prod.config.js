@@ -11,6 +11,8 @@ const aliOSS = {
   bucket: process.env.BUCKET,
   fileDir: process.env.FILE_DIR
 }
+const publicPath = 'https://assets.pilipa.cn/' + process.env.FILE_DIR
+console.log(publicPath)
 console.log(JSON.stringify(aliOSS))
 const extractCommon = new ExtractTextPlugin({
   filename: 'css/common.[contenthash:8].css',
@@ -94,7 +96,7 @@ module.exports = {
     path: path.resolve(__dirname, '../deploy/dist'),
     filename: 'js/[name].[chunkhash:8].js',
     chunkFilename: 'js/[name].[chunkhash:8].js',
-    publicPath: '/'
+    publicPath: publicPath
   },
   module: {
     rules: [
