@@ -38,7 +38,7 @@ class Main extends React.Component {
       </Menu>
     )
     const currentUser = {
-      RealName: 'momo.zxy'
+      RealName: 'kefu'
     }
     const menuList = {
       menuParent: '客服',

@@ -17,7 +17,7 @@ class CustomerService extends React.Component {
     }
     this.goCustomerInfo = this.goCustomerInfo.bind(this)
     console.log(this.props, 'props')
-    // this.props.dispatch(fetchListAction())
+    this.props.dispatch(fetchListAction())
   }
   onSearch (res) {
     console.log(res)
@@ -45,47 +45,6 @@ class CustomerService extends React.Component {
     // this.props.history.push('/customerDetail')
   }
   render () {
-    const dataSource = [{
-      Id: 1,
-      CompanyName: '北京爱康鼎科技有限公司',
-      CityName: '北京市',
-      Belong: 1,
-      Connector: '噼里啪',
-      Mobile: '13521677472',
-      Orders: '5'
-    }, {
-      Id: 2,
-      CompanyName: '南京全时科技有限公司',
-      CityName: '南京市',
-      Belong: 2,
-      Connector: '全时',
-      Mobile: '13521677472',
-      Orders: '3'
-    }, {
-      Id: 3,
-      CompanyName: '南京全时科技有限公司',
-      CityName: '南京市',
-      Belong: 1,
-      Connector: '全时',
-      Mobile: '13521677472',
-      Orders: '3'
-    }, {
-      Id: 4,
-      CompanyName: '南京全时科技有限公司',
-      CityName: '南京市',
-      Belong: 2,
-      Connector: '全时',
-      Mobile: '13521677472',
-      Orders: '3'
-    }, {
-      Id: 5,
-      CompanyName: '南京全时科技有限公司',
-      CityName: '南京市',
-      Belong: 1,
-      Connector: '全时',
-      Mobile: '13521677472',
-      Orders: '3'
-    }]
     return (
       <div style={{ margin: '24px 24px 0' }}>
         <div className={styles.searchList}>
@@ -98,7 +57,7 @@ class CustomerService extends React.Component {
         <div className={styles.cardList}>
           <List
             grid={{ gutter: 16, xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 3 }}
-            dataSource={dataSource}
+            dataSource={this.state.dataSource}
             renderItem={item => (
               <List.Item key={item.Id}>
                 <Card title={item.CompanyName} className={styles['card-head']} onClick={() => {
@@ -121,7 +80,7 @@ class CustomerService extends React.Component {
                     </Col>
                     <Col span={12}>
                       <label>直营/渠道：</label>
-                      <span>{fOrganization(item.Belong)}</span>
+                      <span>{fOrganization(item.systemflag)}</span>
                     </Col>
                   </Row>
                   <Row>

@@ -43,7 +43,7 @@ $(document).ajaxError((event, response, settings) => {
     break
   default:
     if (responseJSON instanceof Object) {
-      if (response.responseJSON.errorcode === '403') {
+      if (response.responseJSON.errorcode === '401') {
         store.dispatch({
           type: 'change login status',
           payload: {
@@ -79,7 +79,7 @@ const http = (url, type, config = {}) => {
   type = type.toUpperCase()
   const extension = config.extension || {}
   config.headers = Object.assign(config.headers || {}, {
-    Authorize: sessionStorage.getItem('token')
+    Authorize: 'Bearer ' + sessionStorage.getItem('token')
   })
   const headers = config.headers || undefined
   delete config.extension

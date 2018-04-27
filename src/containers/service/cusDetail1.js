@@ -1,6 +1,6 @@
 import React from 'react'
 import { Row, Col } from 'antd'
-import { fAddedValue, fInfoSource, fDate, fMonth } from '@/utils/filters'
+import { fAddedValue, fDate, fMonth } from '@/utils/filters'
 import styles from '@/stylus/serviceCard'
 export default class CusDetail1 extends React.Component {
   render () {
@@ -17,13 +17,13 @@ export default class CusDetail1 extends React.Component {
               </Col>
               <Col span={8}>
                 <label>地区：</label>
-                <span>{item.CityName}</span>
+                <span>{item.CityCode}</span>
               </Col>
             </Row>
             <Row className={styles['mt25']}>
               <Col span={8}>
                 <label>联系人：</label>
-                <span>{item.Contactor}</span>
+                <span>{item.Connector}</span>
               </Col>
               <Col span={8}>
                 <label>联系方式：</label>
@@ -37,11 +37,11 @@ export default class CusDetail1 extends React.Component {
             <Row className={styles['mt25']}>
               <Col span={8}>
                 <label>纳税人类别：</label>
-                <span>{fAddedValue(item.Category)}</span>
+                <span>{fAddedValue(item.AddedValue)}</span>
               </Col>
               <Col span={8}>
                 <label>信息来源：</label>
-                <span>{fInfoSource(item.InfoSource)}</span>
+                <span>{item.InfoSource}</span>
               </Col>
             </Row>
           </div>
@@ -98,21 +98,21 @@ export default class CusDetail1 extends React.Component {
             <Row className={styles['mt25']}>
               <Col span={12}>
                 <label>首报月：</label>
-                <span>{fMonth(item.businessDate)}</span>
+                <span>{fMonth(item.BusinessDate)}</span>
               </Col>
               <Col span={12}>
                 <label>建账状态：</label>
-                <span>{item.businessStatus}</span>
+                <span>{item.recall}</span>
               </Col>
             </Row>
             <Row className={styles['mt25']}>
               <Col span={12}>
                 <label>运营会计：</label>
-                <span>{item.businessUserName}</span>
+                <span>{item.AccountantName}</span>
               </Col>
               <Col span={12}>
                 <label>核算会计：</label>
-                <span>{item.accountUserName}</span>
+                <span>{item.AccountantName}</span>
               </Col>
             </Row>
             <Row className={styles['mt25']}>

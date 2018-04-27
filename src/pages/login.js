@@ -25,8 +25,8 @@ class Login extends React.Component {
         console.log(values, 'values')
         requestLogin(values).then(loginRes => {
           if (loginRes.status) {
-            sessionStorage.setItem('token', loginRes.data.Token)
-            sessionStorage.setItem('userInfo', JSON.stringify(loginRes.data))
+            sessionStorage.setItem('token', loginRes.data.token)
+            sessionStorage.setItem('userInfo', JSON.stringify(loginRes.username))
             this.props.dispatch(changeLoginStat('in'))
             this.setState({
               loading: true,

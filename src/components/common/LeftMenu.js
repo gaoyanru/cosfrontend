@@ -13,7 +13,7 @@ export default class LeftMenu extends React.Component {
             </Link>
           </Menu.Item>
         </SubMenu>
-        <SubMenu key="sub2" title={<span><Icon type="user" /><span>用户</span></span>}>
+        {/* <SubMenu key="sub2" title={<span><Icon type="user" /><span>用户</span></span>}>
           <Menu.Item key="2">
             <Link to="/usersAccount">
               <span>账号</span>
@@ -31,7 +31,7 @@ export default class LeftMenu extends React.Component {
               <span>新增策略</span>
             </Link>
           </Menu.Item>
-        </SubMenu>
+        </SubMenu> */}
       </Menu>
     )
   }
