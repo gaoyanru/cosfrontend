@@ -81,11 +81,11 @@ class CustomerService extends React.Component {
                   <Row>
                     <Col span={12}>
                       <label>所属城市：</label>
-                      <span>{item.CityCode}</span>
+                      <span>{item.CityName}</span>
                     </Col>
                     <Col span={12}>
                       <label>直营/渠道：</label>
-                      <span>{fOrganization(item.CusType)}</span>
+                      <span>{item.ChannelName}</span>
                     </Col>
                   </Row>
                   <Row>
