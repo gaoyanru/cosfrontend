@@ -4,7 +4,7 @@ import { fAddedValue, fDate, fMonth } from '@/utils/filters'
 import styles from '@/stylus/serviceCard'
 export default class CusDetail1 extends React.Component {
   render () {
-    const item = this.props.data
+    const item = this.props.data || {}
     return (
       <div>
         {

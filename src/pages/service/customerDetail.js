@@ -59,7 +59,7 @@ export default class CustomerDetail extends React.Component {
       fetchCustomerServiceOrderDetail(this.state.item.Id, this.state.params).then(res => {
         if (res.status) {
           this.setState({
-            tabData2: res.data.list
+            tabData2: res.data
           })
         }
       })
@@ -91,10 +91,10 @@ export default class CustomerDetail extends React.Component {
       dataIndex: 'ContractNo'
     }, {
       title: '项目',
-      dataIndex: 'MainItemName'
+      dataIndex: 'MainItemId'
     }, {
       title: '子项目',
-      dataIndex: 'ChildItemName'
+      dataIndex: 'ChildItemId'
     }, {
       title: '费用',
       dataIndex: 'Amount'
@@ -134,8 +134,8 @@ export default class CustomerDetail extends React.Component {
   }
   viewChildTask (record) {
     const ChildTaskcolumns = [{
-      title: '合同ID',
-      dataIndex: 'ContractNo'
+      title: '任务ID',
+      dataIndex: 'Id'
     }, {
       title: '子任务名称',
       dataIndex: 'TaskName'
@@ -181,7 +181,7 @@ export default class CustomerDetail extends React.Component {
       dataIndex: 'OrderId'
     }, {
       title: '订单来源',
-      dataIndex: 'SourceName'
+      dataIndex: 'OrderSourceId'
     }, {
       title: '订单总金额',
       dataIndex: 'Amount'

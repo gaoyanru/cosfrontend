@@ -13,9 +13,9 @@ export default class extends React.Component {
     const { Id, params, type } = this.props
     switch (type) {
     case 'order':
-      fetchOrderDetail(Id).then(res => {
+      fetchOrderDetail(Id, params).then(res => {
         if (res.status) {
-          const list = res.data.list
+          const list = res.data
           this.setState({
             dataSource: list
           })

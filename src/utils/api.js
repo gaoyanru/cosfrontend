@@ -22,8 +22,8 @@ export const fetchCustomerServiceDetail = (id, payload) => {
 export const fetchCustomerServiceOrderDetail = (id, payload) => {
   return http('api/customers/' + id + '/orders', payload)
 }
-export const fetchOrderDetail = (id) => {
-  return http('api/customers/orders/' + id)
+export const fetchOrderDetail = (id, payload) => {
+  return http('api/customers/orders/' + id, payload)
 }
 export const fetchCustomerServiceOutworkDetail = (id, payload) => {
   return http('api/customers/' + id + '/maintasks', payload)
