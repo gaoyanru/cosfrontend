@@ -49,8 +49,8 @@ class Login extends React.Component {
       <div className={styles.login}>
         <div className={styles.title}>
           <span className={styles.logo}></span>
-          <span className={styles.text}>噼里啪渠道管理系统</span>
-          <span className={styles.text_tag}>V2.0.7</span>
+          <span className={styles.text}>噼里啪中心运营管理系统</span>
+          <span className={styles.text_tag}>V1.0.0</span>
         </div>
         <div className={styles.logo_context}>
           <Row>
