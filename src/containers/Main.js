@@ -19,8 +19,12 @@ class Main extends React.Component {
     }
     this.handleMenuCollapse = this.handleMenuCollapse.bind(this)
   }
+  componentWillMount () {
+    if (this.props.loginStat === 'out') {
+      this.props.history.push('/login')
+    }
+  }
   componentWillReceiveProps (props) {
-    console.log(props, 'main')
     if (props.loginStat === 'out') {
       this.props.history.push('/login')
     }
@@ -49,6 +53,9 @@ class Main extends React.Component {
       menuList.child = '详情'
     }
     console.log(this.props.location.pathname, this.props.location.pathname === '/customerDetail', 'props')
+    if (this.props.loginStat === 'out') {
+      return <div>no auth</div>
+    }
     return (
       <Layout>
         <Sider

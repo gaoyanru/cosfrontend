@@ -21,5 +21,5 @@ export default handleActions({
   }
 }, {
   ajaxCount: 0,
-  loginStat: 'in'
+  loginStat: sessionStorage.getItem('token') ? 'in' : 'out'
 })
