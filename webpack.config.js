@@ -222,7 +222,6 @@ module.exports = {
     modules: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'src')],
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.min.js', '.json', '.styl', '.css'],
     alias: {
-      'libs': path.join(__dirname, 'libs'),
       '@': path.join(__dirname, 'src/')
     }
   },

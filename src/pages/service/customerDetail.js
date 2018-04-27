@@ -34,7 +34,7 @@ export default class CustomerDetail extends React.Component {
     }, () => {
       console.log(this.state.item, 'item')
       let params = {
-        systemflag: this.state.item.systemflag
+        systemflag: this.state.item.CusType
       }
       this.setState({
         params: params
@@ -43,7 +43,7 @@ export default class CustomerDetail extends React.Component {
       fetchCustomerServiceDetail(this.state.item.Id, params).then(res => {
         if (res.status) {
           this.setState({
-            tabData1: res.data
+            tabData1: res.data[0]
           })
         }
       })
@@ -72,7 +72,7 @@ export default class CustomerDetail extends React.Component {
         }
       })
     } else if (key === '5') {
-      fetchAgentDetail(this.state.item.servicecode).then(res => {
+      fetchAgentDetail(this.state.item.ServiceCompanyCode).then(res => {
         if (res.status) {
           this.setState({
             tabData4: res.data

@@ -17,7 +17,7 @@ class CustomerService extends React.Component {
     }
     this.goCustomerInfo = this.goCustomerInfo.bind(this)
     console.log(this.props, 'props')
-    this.props.dispatch(fetchListAction())
+    // this.props.dispatch(fetchListAction())
   }
   onSearch (res) {
     console.log(res)
@@ -34,8 +34,11 @@ class CustomerService extends React.Component {
       }
     })
   }
-  goCustomerInfo (item) {
-    console.log(item, 'item')
+  goCustomerInfo (item, event) {
+    console.log(event.currentTarget, 'item')
+    if (event.target.className !== 'ant-card-head-title') {
+      return
+    }
     this.props.history.push({
       pathname: '/customerDetail',
       state: {
@@ -60,9 +63,11 @@ class CustomerService extends React.Component {
             dataSource={this.state.dataSource}
             renderItem={item => (
               <List.Item key={item.Id}>
-                <Card title={item.CompanyName} className={styles['card-head']} onClick={() => {
-                  this.goCustomerInfo(item)
-                }}>
+                <Card
+                  title={item.CompanyName}
+                  className={styles['card-head']}
+                  onClick={this.goCustomerInfo.bind(this, item)}
+                >
                   <Row>
                     <Col span={12}>
                       <label>联系人：</label>
@@ -76,11 +81,11 @@ class CustomerService extends React.Component {
                   <Row>
                     <Col span={12}>
                       <label>所属城市：</label>
-                      <span>{item.CityName}</span>
+                      <span>{item.CityCode}</span>
                     </Col>
                     <Col span={12}>
                       <label>直营/渠道：</label>
-                      <span>{fOrganization(item.systemflag)}</span>
+                      <span>{fOrganization(item.CusType)}</span>
                     </Col>
                   </Row>
                   <Row>

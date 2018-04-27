@@ -4,15 +4,14 @@
   "description": "噼里啪做账系统前端，基于react",
   "main": "index.js",
   "scripts": {
-    "dev": "node build/server.js",
-    "build": "node build/build.js",
+    "dev": "node scripts/server.js",
+    "build": "node scripts/build.js",
     "clear": "rimraf dist",
     "watch": "webpack --progress --colors --watch --env development",
     "test:watch": "node ./node_modules/karma/bin/karma start karma.conf.js --browsers Chrome",
     "test": "node ./node_modules/karma/bin/karma start karma.conf.js --single-run",
     "test-jenkins": "node ./node_modules/karma/bin/karma start karma.conf.js --single-run",
-    "dll": "node ./node_modules/webpack/bin/webpack.js --config build/webpack.dll.config.js",
-    "stats": "webpack --config build/webpack.prod.config.js --profile --json > stats.json"
+    "stats": "webpack --config scripts/webpack.prod.config.js --profile --json > stats.json"
   },
   "keywords": [
     "react",
@@ -122,6 +121,7 @@
     "webpack-dev-middleware": "^1.12.2",
     "webpack-dev-server": "^2.9.1",
     "webpack-hot-middleware": "^2.21.0",
+    "webpack-nexus-upload-plugin": "^1.0.0",
     "webpack-visualizer-plugin": "^0.1.11"
   }
 }

@@ -3,6 +3,7 @@ var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin') // html模板插入代码。
 var ExtractTextPlugin = require('extract-text-webpack-plugin') // 从bundle中提取文本到一个新的文件中
 var Visualizer = require('webpack-visualizer-plugin')
+const webpackUploadPlugin = require('webpack-nexus-upload-plugin')
 const extractCommon = new ExtractTextPlugin({
   filename: 'css/common.[contenthash:8].css',
   allChunks: true
@@ -62,7 +63,17 @@ var plugins = [
   new webpack.NoEmitOnErrorsPlugin(),
   extractCommon,
   extractApp,
-  new Visualizer()
+  new Visualizer(),
+  new webpackUploadPlugin({
+    path: path.resolve(__dirname, '../deploy/dist'),
+    aliOSS: {
+        region: process.env.REGION,
+        accessKeyId: process.env.ACCESS_KEY_ID,
+        accessKeySecret: process.env.ACCESS_KEY_SECRET,
+        bucket: process.env.BUCKET,
+        fileDir: process.env.FILE_DIR
+    }
+  })
 ]
 
 module.exports = {
@@ -167,9 +178,8 @@ module.exports = {
       '.css'
     ],
     alias: {
-      'libs': path.join(__dirname, '../libs'),
       '@': path.join(__dirname, '../src/')
     }
   },
-  devtool: ''
+  devtool: 'source-map'
 }
