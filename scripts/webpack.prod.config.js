@@ -4,6 +4,14 @@ var HtmlWebpackPlugin = require('html-webpack-plugin') // html模板插入代码
 var ExtractTextPlugin = require('extract-text-webpack-plugin') // 从bundle中提取文本到一个新的文件中
 var Visualizer = require('webpack-visualizer-plugin')
 const webpackUploadPlugin = require('webpack-nexus-upload-plugin')
+const aliOSS = {
+  region: process.env.REGION,
+  accessKeyId: process.env.ACCESS_KEY_ID,
+  accessKeySecret: process.env.ACCESS_KEY_SECRET,
+  bucket: process.env.BUCKET,
+  fileDir: process.env.FILE_DIR
+}
+console.log(JOSN.stringify(aliOSS))
 const extractCommon = new ExtractTextPlugin({
   filename: 'css/common.[contenthash:8].css',
   allChunks: true
