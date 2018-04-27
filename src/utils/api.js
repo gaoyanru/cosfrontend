@@ -6,11 +6,15 @@ export const fetchWechatUserInfo = () => {
 }
 // login
 export const requestLogin = (params) => {
-  return http('/api/security/login', 'post', params)
+  return http('/api/login', 'post', params)
 }
 // logout
 export const logout = () => {
   return http('/api/security/logout')
+}
+// customer-service
+export const fetchCustomerServiceList = (payload) => {
+  return http('/api/customers', payload)
 }
 // getAllDepartments
 export const getAllDepartments = () => {
@@ -18,7 +22,4 @@ export const getAllDepartments = () => {
 }
 export const fetchUsersAccount = (payload) => {
   return http('/api/users', payload)
-}
-export const fetchCustomerServiceList = (payload) => {
-  return http('/api/service', payload)
 }

@@ -58,7 +58,7 @@ class Login extends React.Component {
               <Spin spinning={this.state.loading}>
                 <Form onSubmit={this.handleSubmit.bind(this)}>
                   <FormItem>
-                    {getFieldDecorator('UserName', {
+                    {getFieldDecorator('username', {
                       rules: [{ required: true, message: '请输入用户名' }]
                     })(
                       <CInput
@@ -70,7 +70,7 @@ class Login extends React.Component {
                     )}
                   </FormItem>
                   <FormItem>
-                    {getFieldDecorator('PassWord', {
+                    {getFieldDecorator('password', {
                       rules: [{ required: true, message: '请输入密码' }]
                     })(
                       <CInput

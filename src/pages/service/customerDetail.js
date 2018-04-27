@@ -9,12 +9,25 @@ export default class CustomerDetail extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      curKey: '1'
+      curKey: '1',
+      item: {}
     }
     this.callback = this.callback.bind(this)
     this.viewOrder = this.viewOrder.bind(this)
     this.viewChildTask = this.viewChildTask.bind(this)
     this.back = this.back.bind(this)
+  }
+  componentWillMount () {
+    console.log(this.props.location, 'key')
+    if (!this.props.location.state) {
+      this.props.history.push('/customer')
+      return
+    }
+    this.setState({
+      item: this.props.location.state.key
+    }, () => {
+      console.log(this.state.item, 'item')
+    })
   }
   callback (key) {
     console.log(key)

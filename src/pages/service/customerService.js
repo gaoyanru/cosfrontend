@@ -5,22 +5,44 @@ import { withRouter } from 'react-router'
 import styles from '@/stylus/serviceCard'
 import Search from '@/containers/Search'
 import CustomerDetail from '@/pages/service/customerDetail'
+import { fetchCustomerServiceList } from '@/utils/api'
 import { fetchListAction } from '@/actions/customerService'
 import { fOrganization } from '@/utils/filters'
 
 class CustomerService extends React.Component {
   constructor (props) {
     super(props)
+    this.state = {
+      dataSource: []
+    }
     this.goCustomerInfo = this.goCustomerInfo.bind(this)
     console.log(this.props, 'props')
     // this.props.dispatch(fetchListAction())
   }
   onSearch (res) {
     console.log(res)
+    let params = {
+      companyname: res[0],
+      phone: res[1],
+      connector: res[2]
+    }
+    fetchCustomerServiceList(params).then(res => {
+      if (res.status) {
+        this.setState({
+          dataSource: res.data
+        })
+      }
+    })
   }
-  goCustomerInfo () {
-    console.log('详情')
-    this.props.history.push('/customerDetail')
+  goCustomerInfo (item) {
+    console.log(item, 'item')
+    this.props.history.push({
+      pathname: '/customerDetail',
+      state: {
+        key: item
+      }
+    })
+    // this.props.history.push('/customerDetail')
   }
   render () {
     const dataSource = [{
@@ -79,7 +101,9 @@ class CustomerService extends React.Component {
             dataSource={dataSource}
             renderItem={item => (
               <List.Item key={item.Id}>
-                <Card title={item.CompanyName} className={styles['card-head']} onClick={this.goCustomerInfo}>
+                <Card title={item.CompanyName} className={styles['card-head']} onClick={() => {
+                  this.goCustomerInfo(item)
+                }}>
                   <Row>
                     <Col span={12}>
                       <label>联系人：</label>
