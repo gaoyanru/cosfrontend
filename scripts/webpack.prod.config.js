@@ -11,7 +11,7 @@ const aliOSS = {
   bucket: process.env.BUCKET,
   fileDir: process.env.FILE_DIR
 }
-console.log(JOSN.stringify(aliOSS))
+console.log(JSON.stringify(aliOSS))
 const extractCommon = new ExtractTextPlugin({
   filename: 'css/common.[contenthash:8].css',
   allChunks: true
