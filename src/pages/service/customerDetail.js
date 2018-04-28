@@ -77,7 +77,7 @@ export default class CustomerDetail extends React.Component {
       fetchAgentDetail(this.state.item.ServiceCompanyCode).then(res => {
         if (res.status) {
           this.setState({
-            tabData4: res.data
+            tabData4: res.data.data
           })
         }
       })
