@@ -67,12 +67,16 @@ $(document).ajaxError((event, response, settings) => {
     notification.error(msgConf)
   }
 })
-
+const RequestTypes = ['GET', 'POST', 'DELETE', 'PUT']
 const http = (url, type, config = {}) => {
   if (typeof type === 'object') {
     config = type
-    type = config.type || 'GET'
-    delete (config.type)
+    if (typeof config.type === 'string' && RequestTypes.indexOf(config.type.toUpperCase()) > -1) {
+      type = config.type || 'GET'
+      delete (config.type)
+    } else {
+      type = 'GET'
+    }
   } else {
     type = type || 'GET'
   }
