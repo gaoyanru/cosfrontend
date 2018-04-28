@@ -17,7 +17,7 @@ export default class CusDetail1 extends React.Component {
               </Col>
               <Col span={8}>
                 <label>地区：</label>
-                <span>{item.CityCode}</span>
+                <span>{item.CityName}</span>
               </Col>
             </Row>
             <Row className={styles['mt25']}>
@@ -75,7 +75,12 @@ export default class CusDetail1 extends React.Component {
               <Col span={8}>
                 <label>营业期限：</label>
                 <span>{fDate(item.RegisterDate)}至</span>
-                <span>{fDate(item.BusnissDeadline)}</span>
+                {
+                  (item.NoDeadLine === 1) && <span>无期限</span>
+                }
+                {
+                  (item.NoDeadLine === 0) && <span>{fDate(item.BusnissDeadline)}</span>
+                }
               </Col>
             </Row>
             <Row className={styles['mt25']}>

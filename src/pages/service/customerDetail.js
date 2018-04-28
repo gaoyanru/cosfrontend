@@ -1,6 +1,6 @@
 import React from 'react'
 import { Tabs, Table, Button } from 'antd'
-import { fDate, fMainTaskStatus, fSubTaskStatus, fOutworkStatus, fContractStatus, fOrderSource } from '@/utils/filters'
+import { fDate, fMainTaskStatus, fSubTaskStatus, fOutworkStatus, fContractStatus } from '@/utils/filters'
 import styles from '@/stylus/serviceCard'
 import CusDetail1 from '@/containers/service/cusDetail1'
 import ModalTable from '@/containers/customer/ModalTable'
@@ -88,13 +88,13 @@ export default class CustomerDetail extends React.Component {
   viewOrder (record) {
     const orderModalcolumns = [{
       title: '合同ID',
-      dataIndex: 'ContractNo'
+      dataIndex: 'Id'
     }, {
       title: '项目',
-      dataIndex: 'MainItemId'
+      dataIndex: 'ItemName'
     }, {
       title: '子项目',
-      dataIndex: 'ChildItemId'
+      dataIndex: 'ChildItemName'
     }, {
       title: '费用',
       dataIndex: 'Amount'
@@ -181,8 +181,7 @@ export default class CustomerDetail extends React.Component {
       dataIndex: 'OrderId'
     }, {
       title: '订单来源',
-      dataIndex: 'OrderSourceId',
-      render: val => fOrderSource(val)
+      dataIndex: 'SourceName'
     }, {
       title: '订单总金额',
       dataIndex: 'Amount'
