@@ -35,10 +35,10 @@ class GlobalHeader extends React.Component {
     } = this.props
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick.bind(this)}>
-        <Menu.Item>
+        {/* <Menu.Item>
           <Icon type="user" />
           个人中心
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item key="logout">
           <Icon type="logout" />
           退出登录
@@ -53,8 +53,8 @@ class GlobalHeader extends React.Component {
           onClick={this.toggle}
         />
         <div className={styles.right}>
-          <span className={`${styles.action} ${styles.top}`}><Icon type="search" /></span>
-          <span className={`${styles.action} ${styles.top}`}><Icon type="bell" /></span>
+          {/* <span className={`${styles.action} ${styles.top}`}><Icon type="search" /></span>
+          <span className={`${styles.action} ${styles.top}`}><Icon type="bell" /></span> */}
           {currentUser.RealName && (
             <Dropdown overlay={menu}>
               <span className={styles.action}>

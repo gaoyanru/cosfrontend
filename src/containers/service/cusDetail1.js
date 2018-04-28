@@ -1,6 +1,6 @@
 import React from 'react'
 import { Row, Col } from 'antd'
-import { fAddedValue, fDate, fMonth } from '@/utils/filters'
+import { fAddedValue, fDate, fMonth, fInfoSource } from '@/utils/filters'
 import styles from '@/stylus/serviceCard'
 export default class CusDetail1 extends React.Component {
   render () {
@@ -41,7 +41,7 @@ export default class CusDetail1 extends React.Component {
               </Col>
               <Col span={8}>
                 <label>信息来源：</label>
-                <span>{item.InfoSource}</span>
+                <span>{fInfoSource(item.InfoSource)}</span>
               </Col>
             </Row>
           </div>

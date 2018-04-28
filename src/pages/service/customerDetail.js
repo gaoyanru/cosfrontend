@@ -153,7 +153,7 @@ export default class CustomerDetail extends React.Component {
     }, {
       title: '状态',
       dataIndex: 'Status',
-      render: val => fOutworkStatus(val)
+      render: val => fSubTaskStatus(val)
     }]
     const modal = Modal.show({
       content: (
@@ -234,7 +234,7 @@ export default class CustomerDetail extends React.Component {
       render: val => fMainTaskStatus(val)
     }, {
       title: '当前子任务状态',
-      dataIndex: 'OutWorkerStatus',
+      dataIndex: 'Status',
       render: val => fSubTaskStatus(val)
     }, {
       title: '任务提交时间',
