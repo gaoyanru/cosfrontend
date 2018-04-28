@@ -86,6 +86,7 @@ class CustomerService extends React.Component {
                     <Col span={12}>
                       <label>直营/渠道：</label>
                       <span>{item.ChannelName}</span>
+                      <span>({fOrganization(item.CusType)})</span>
                     </Col>
                   </Row>
                   <Row>

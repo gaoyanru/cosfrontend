@@ -128,3 +128,15 @@ export const fContractStatus = (val) => {
   }
   return str
 }
+export const fOrderSource = (status) => {
+  var str = ''
+  switch (+status) {
+  case 1:
+    str = '电销'
+    break
+  case 2:
+    str = '天猫'
+    break
+  }
+  return str
+}

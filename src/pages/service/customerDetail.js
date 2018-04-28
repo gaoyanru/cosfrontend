@@ -1,6 +1,6 @@
 import React from 'react'
 import { Tabs, Table, Button } from 'antd'
-import { fDate, fMainTaskStatus, fSubTaskStatus, fOutworkStatus, fContractStatus } from '@/utils/filters'
+import { fDate, fMainTaskStatus, fSubTaskStatus, fOutworkStatus, fContractStatus, fOrderSource } from '@/utils/filters'
 import styles from '@/stylus/serviceCard'
 import CusDetail1 from '@/containers/service/cusDetail1'
 import ModalTable from '@/containers/customer/ModalTable'
@@ -141,7 +141,7 @@ export default class CustomerDetail extends React.Component {
       dataIndex: 'TaskName'
     }, {
       title: '当前外勤人员',
-      dataIndex: 'OutWorkerName'
+      dataIndex: 'OutWorker'
     }, {
       title: '开始时间',
       dataIndex: 'StartTime',
@@ -181,7 +181,8 @@ export default class CustomerDetail extends React.Component {
       dataIndex: 'OrderId'
     }, {
       title: '订单来源',
-      dataIndex: 'OrderSourceId'
+      dataIndex: 'OrderSourceId',
+      render: val => fOrderSource(val)
     }, {
       title: '订单总金额',
       dataIndex: 'Amount'
