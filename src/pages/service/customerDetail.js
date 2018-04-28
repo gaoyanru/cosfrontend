@@ -64,6 +64,8 @@ export default class CustomerDetail extends React.Component {
         }
       })
     } else if (key === '4') {
+      console.log(this.state.params.systemflag, this.state.params.systemflag === 2, 'system')
+      if (this.state.params.systemflag === 2) return
       fetchCustomerServiceOutworkDetail(this.state.item.Id, this.state.params).then(res => {
         if (res.status) {
           this.setState({
@@ -213,7 +215,7 @@ export default class CustomerDetail extends React.Component {
               (this.state.item.CusType === 1) && <a onClick={e => { this.viewOrder(record) }}>合同</a>
             }
             {
-              (this.state.item.CusType === 2) && <a style={{ cursor: 'not-allowed' }}>合同</a>
+              (this.state.item.CusType === 2) && <a style={{ cursor: 'not-allowed', color: '#ccc' }}>合同</a>
             }
           </span>
         )
