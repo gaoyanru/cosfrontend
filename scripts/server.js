@@ -2,6 +2,10 @@ const express = require('express');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 var proxy = require('http-proxy-middleware');
+const openBrowser = require('react-dev-utils/openBrowser');
+const {
+  prepareUrls
+} = require('react-dev-utils/WebpackDevServerUtils');
 
 const app = express();
 const config = require('../webpack.config.js');
@@ -24,4 +28,5 @@ app.use(require("webpack-hot-middleware")(compiler));
 
 app.listen(3003, function () {
   console.log('app listening on port 3003!\n');
+  openBrowser(prepareUrls('http', '0.0.0.0', 3003).localUrlForBrowser);
 });
