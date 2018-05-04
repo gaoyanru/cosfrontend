@@ -29,7 +29,8 @@ const configs = [
   { path: '/customerDetail', component: modules.CustomerDeatil },
   { path: '/usersAccount', component: modules.UsersAccount },
   { path: '/usersRoles', component: modules.UsersRoles },
-  { path: '/usersAddStrategy', component: modules.UsersAddStrategy }
+  { path: '/usersAddStrategy', component: modules.UsersAddStrategy },
+  { path: '/datamanagement', component: modules.ModifyData }
 ]
 const router = () => (
   <Provider store={store}>

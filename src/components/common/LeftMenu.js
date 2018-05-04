@@ -13,6 +13,13 @@ export default class LeftMenu extends React.Component {
             </Link>
           </Menu.Item>
         </SubMenu>
+        <SubMenu key="sub3" title={<span><Icon type="customer-service" /><span>数据管理</span></span>}>
+          <Menu.Item key="3">
+            <Link to="/datamanagement">
+              <span>数据修改</span>
+            </Link>
+          </Menu.Item>
+        </SubMenu>
         {/* <SubMenu key="sub2" title={<span><Icon type="user" /><span>用户</span></span>}>
           <Menu.Item key="2">
             <Link to="/usersAccount">
