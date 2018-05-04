@@ -30,7 +30,8 @@ const configs = [
   { path: '/usersAccount', component: modules.UsersAccount },
   { path: '/usersRoles', component: modules.UsersRoles },
   { path: '/usersAddStrategy', component: modules.UsersAddStrategy },
-  { path: '/datamanagement', component: modules.ModifyData }
+  { path: '/datamanagement', component: modules.ModifyData },
+  { path: '/detail', component: modules.ModifyDataDetail }
 ]
 const router = () => (
   <Provider store={store}>
