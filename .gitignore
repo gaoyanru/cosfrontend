@@ -10,3 +10,4 @@ dist
 reports
 stats.json
 .awcache
+yarn-error.log
