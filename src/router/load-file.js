@@ -8,4 +8,4 @@ export { default as loadUsersAddStrategy } from 'bundle-loader?lazy&name=[name]!
 export { default as loadUsersRoles } from 'bundle-loader?lazy&name=[name]!@/pages/users/usersRoles'
 export { default as loadCustomerService } from 'bundle-loader?lazy&name=[name]!@/pages/service/customerService'
 export { default as loadCustomerDeatil } from 'bundle-loader?lazy&name=[name]!@/pages/service/customerDetail'
-export { default as loadModifyData } from 'bundle-loader?lazy&name=[name]!@/pages/dataManagement/modifyData'
+export { default as loadModifyData } from 'bundle-loader?lazy&name=[name]!@/pages/dataManagement/index'
