@@ -1,6 +1,8 @@
 import React from 'react'
 import styles from '@/stylus/modifydata'
 import Search from '@/containers/Search'
+import Company from './company'
+
 class ModifyData extends React.Component {
   onSearch (res) {
     console.log(res)
@@ -21,7 +23,7 @@ class ModifyData extends React.Component {
           />
         </div>
         <div className={styles.mt24}>
-          dss
+          <Company type={1} />
         </div>
       </div>
     )
