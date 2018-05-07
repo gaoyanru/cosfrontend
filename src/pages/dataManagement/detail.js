@@ -2,6 +2,7 @@ import React from 'react'
 import styles from '@/stylus/modifydata'
 import { Card } from 'antd'
 import AgentData from '@/containers/dataManagement/Agentdata'
+import Company from '@/containers/dataManagement/Company'
 class ModifyData extends React.Component {
   onSearch (res) {
     console.log(res)
@@ -17,6 +18,7 @@ class ModifyData extends React.Component {
         <Card title='Agent数据'>
           <AgentData/>
         </Card>
+        <Company type={1} />
       </div>
     )
   }
