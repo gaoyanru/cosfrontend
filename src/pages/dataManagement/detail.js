@@ -5,6 +5,7 @@ import OutWork from '@/components/common/Outwork'
 import AgentData from '@/containers/dataManagement/Agentdata'
 import Company from '@/containers/dataManagement/Company'
 import AgentService from '@/containers/dataManagement/AgentService'
+import Operate from '@/containers/dataManagement/Operate'
 const TabPane = Tabs.TabPane
 class ModifyData extends React.Component {
   constructor (props) {
@@ -62,7 +63,9 @@ class ModifyData extends React.Component {
               />
             </TabPane>
             <TabPane className={styles['basic-info']} tab="操作记录" key="4">
-              <div>sssss</div>
+              <Operate
+                Id={this.state.companyItem.Id}
+              />
             </TabPane>
           </Tabs>
         </div>

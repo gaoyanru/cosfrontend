@@ -48,3 +48,6 @@ export const fetchAgentServiceData = (id) => {
 export const fetchAgentServiceList = (id) => {
   return http('api/tally/' + id)
 }
+export const fetchOperateList = (id) => {
+  return http('api/customer/rz/' + id)
+}
