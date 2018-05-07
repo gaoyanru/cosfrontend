@@ -2,6 +2,7 @@ import React from 'react'
 import styles from '@/stylus/modifydata'
 import { Card, Button, Tabs } from 'antd'
 import AgentData from '@/containers/dataManagement/Agentdata'
+import Company from '@/containers/dataManagement/Company'
 const TabPane = Tabs.TabPane
 class ModifyData extends React.Component {
   constructor (props) {
@@ -39,6 +40,9 @@ class ModifyData extends React.Component {
           <Card title='Agent数据'>
             <AgentData/>
           </Card>
+        </div>
+        <div style={{ margin: '24px 24px 0' }}>
+          <Company type={1}/>
         </div>
         <div className={styles.con} style={{ margin: '24px 24px 0' }}>
           <Tabs defaultActiveKey="1" onChange={this.callback}>
