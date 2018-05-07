@@ -9,18 +9,19 @@ export default class Outwork extends React.Component {
     super(props)
     this.state = {
       CusType: 1,
-      tabData: []
+      tabData: [],
+      params: {
+        systemflag: 1
+      }
     }
     this.viewChildTask = this.viewChildTask.bind(this)
   }
   componentWillMount () {
-    let params = {
-      systemflag: 1
-    }
-    fetchCustomerServiceOutworkDetail(this.props.Id, params).then(res => {
+    console.log(this.props.Id, 'this.props.Id')
+    fetchCustomerServiceOutworkDetail(this.props.Id, this.state.params).then(res => {
       if (res.status) {
         this.setState({
-          tabData3: res.data
+          tabData: res.data
         })
       }
     })

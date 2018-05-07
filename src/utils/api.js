@@ -41,3 +41,10 @@ export const getAllDepartments = () => {
 export const fetchUsersAccount = (payload) => {
   return http('/api/users', payload)
 }
+// 数据管理
+export const fetchAgentServiceData = (id) => {
+  return http('api/tally/getheadinfo/' + id)
+}
+export const fetchAgentServiceList = (id) => {
+  return http('api/tally/' + id)
+}

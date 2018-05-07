@@ -140,3 +140,18 @@ export const fOrderSource = (status) => {
   }
   return str
 }
+export const fAgentStatus = (status) => {
+  var str = ''
+  switch (+status) {
+  case 1:
+    str = '正常'
+    break
+  case 2:
+    str = '挂起'
+    break
+  case 5:
+    str = '建账中'
+    break
+  }
+  return str
+}
