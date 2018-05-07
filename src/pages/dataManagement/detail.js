@@ -10,8 +10,7 @@ class ModifyData extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      companyItem: {},
-      CompanyName: '北京爱康定'
+      companyItem: {}
     }
     this.back = this.back.bind(this)
     this.callback = this.callback.bind(this)
@@ -26,14 +25,6 @@ class ModifyData extends React.Component {
       companyItem: this.props.location.state.key
     })
   }
-  onSearch (res) {
-    console.log(res)
-    let params = {
-      companyname: res[0],
-      phone: res[1],
-      connector: res[2]
-    }
-  }
   back () {
     this.props.history.go(-1)
   }
@@ -44,7 +35,7 @@ class ModifyData extends React.Component {
     return (
       <div>
         <div style={{position: 'relative'}}>
-          <h4 className={styles.title}>{this.state.CompanyName}</h4>
+          <h4 className={styles.title}>{this.state.companyItem.CompanyName}</h4>
           <Button className={styles.btn} type="primary" onClick={this.back}>
             返回
           </Button>

@@ -44,10 +44,18 @@ class Main extends React.Component {
     const currentUser = {
       RealName: 'kefu'
     }
-    const menuList = {
+    let menuList = {
       menuParent: '客服中心',
       children: '客户',
       child: ''
+    }
+    if (this.props.location.pathname === '/datamanagement') {
+      menuList.menuParent = '数据管理'
+      menuList.children = '数据修改'
+    }
+    if (this.props.location.pathname === '/datamanagementDetail') {
+      menuList.menuParent = '数据管理'
+      menuList.children = '数据修改'
     }
     if (this.props.location.pathname === '/customerDetail') {
       menuList.child = '详情'
