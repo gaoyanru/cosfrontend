@@ -1,17 +1,30 @@
 import React from 'react'
 import styles from '@/stylus/modifydata'
 import { Card, Button, Tabs } from 'antd'
+import OutWork from '@/components/common/Outwork'
 import AgentData from '@/containers/dataManagement/Agentdata'
 import Company from '@/containers/dataManagement/Company'
+import AgentService from '@/containers/dataManagement/AgentService'
 const TabPane = Tabs.TabPane
 class ModifyData extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      companyItem: {},
       CompanyName: '北京爱康定'
     }
     this.back = this.back.bind(this)
     this.callback = this.callback.bind(this)
+  }
+  componentWillMount () {
+    console.log(this.props.location, 'key')
+    if (!this.props.location.state) {
+      this.props.history.push('/datamanagement')
+      return
+    }
+    this.setState({
+      companyItem: this.props.location.state.key
+    })
   }
   onSearch (res) {
     console.log(res)
@@ -44,14 +57,18 @@ class ModifyData extends React.Component {
         </div>
         <div className={styles.con} style={{ margin: '24px 24px 0' }}>
           <Tabs defaultActiveKey="1" onChange={this.callback}>
-            <TabPane className={styles['basic-info']} tab="订单" key="1">
+            <TabPane className={styles['basic-info']} tab="订单信息" key="1">
               <div>ssss</div>
             </TabPane>
-            <TabPane className={styles['basic-info']} tab="外勤任务信息" key="2">
-              <div>sssss</div>
+            <TabPane className={styles['basic-info']} tab="外勤任务" key="2">
+              <OutWork
+                Id={this.state.companyItem.Id}
+              />
             </TabPane>
             <TabPane className={styles['basic-info']} tab="记账服务" key="3">
-              <div>sssss</div>
+              <AgentService
+                Id={this.state.companyItem.Id}
+              />
             </TabPane>
             <TabPane className={styles['basic-info']} tab="操作记录" key="4">
               <div>sssss</div>
