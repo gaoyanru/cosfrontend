@@ -44,7 +44,6 @@ class Company extends React.Component {
     }
   }
   render () {
-    const { getFieldDecorator } = this.props.form
     const { isEdit } = this.state
     const editNode = (
       <div className={styles['edit-container']}>
