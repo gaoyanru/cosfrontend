@@ -56,6 +56,7 @@ class Main extends React.Component {
     if (this.props.location.pathname === '/datamanagementDetail') {
       menuList.menuParent = '数据管理'
       menuList.children = '数据修改'
+      menuList.child = '详情'
     }
     if (this.props.location.pathname === '/customerDetail') {
       menuList.child = '详情'

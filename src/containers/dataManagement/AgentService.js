@@ -26,7 +26,7 @@ export default class AgentService extends React.Component {
     fetchAgentServiceData(id).then(res => {
       if (res.status) {
         this.setState({
-          headData: res.data
+          headData: res.data[0]
         })
       }
     })
@@ -57,13 +57,14 @@ export default class AgentService extends React.Component {
       dataIndex: 'OrderMonths'
     }, {
       title: '签单日期',
-      dataIndex: 'CreateDate'
+      dataIndex: 'CreateDate',
+      render: val => fDate(val)
     }, {
       title: '开始服务日期',
       dataIndex: 'ServiceStart'
     }, {
       title: '结束日期',
-      dataIndex: 'ServiceEnd'
+      dataIndex: 'serviceEnd'
     }, {
       title: '合同状态',
       dataIndex: 'orderstatus'
@@ -81,10 +82,12 @@ export default class AgentService extends React.Component {
           <Col span={4}>
             <label>记账合同：</label>
             <span>{data.count}</span>
+            <span>个</span>
           </Col>
           <Col span={4}>
             <label>服务期限：</label>
             <span>{data.timespan}</span>
+            <span>个月</span>
           </Col>
           <Col span={4}>
             <label>报税状态：</label>
@@ -100,7 +103,7 @@ export default class AgentService extends React.Component {
           </Col>
         </Row>
         <Table
-          rowKey={record => (record.Id)}
+          rowKey={record => (record.CustomerId)}
           dataSource={listData}
           columns={columns}
           pagination={false}
