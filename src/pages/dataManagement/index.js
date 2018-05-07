@@ -24,7 +24,8 @@ class Index extends React.Component {
     let params = {
       companyname: res[0],
       phone: res[1],
-      connector: res[2]
+      connector: res[2],
+      type: 1
     }
     fetchCustomerServiceList(params).then(res => {
       if (res.status) {
