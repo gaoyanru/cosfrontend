@@ -6,41 +6,39 @@ export default class AgentData extends React.Component {
   render () {
     // const data = this.props.data
     const data = {
-      businessDate: '2017-02-09',
+      id: 12334,
+      businessDate: '2018-09-10',
       businessUserName: '习大大',
       accountUserName: '嘻嘻嘻',
       businessStatus: 1,
-      businessStatus1: 1,
-      businessDate1: '2017-02-09'
+      businessStatus1: 1
     }
     return (
       <div>
         <Row className={styles['mt10']}>
-          <Col span={8}>
+          <Col span={4}>
+            <label>序列ID：</label>
+            <span>{data.id}</span>
+          </Col>
+          <Col span={4}>
             <label>开始账期：</label>
             <span>{fMonth(data.businessDate)}</span>
           </Col>
-          <Col span={8}>
+          <Col span={4}>
             <label>主办会计：</label>
-            <span>{data.businessUserName}</span>
-          </Col>
-          <Col span={8}>
-            <label>核算会计：</label>
             <span>{data.accountUserName}</span>
           </Col>
-        </Row>
-        <Row>
-          <Col span={8}>
+          <Col span={4}>
+            <label>是否分配：</label>
+            <span>{data.accountUserName}</span>
+          </Col>
+          <Col span={4}>
             <label>记账状态：</label>
             <span>{data.businessDate1}</span>
           </Col>
-          <Col span={8}>
+          <Col span={4}>
             <label>是否建账：</label>
             <span>{data.businessStatus}</span>
-          </Col>
-          <Col span={8}>
-            <label>创建时间：</label>
-            <span>{data.businessStatus1}</span>
           </Col>
         </Row>
       </div>

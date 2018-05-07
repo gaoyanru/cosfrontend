@@ -36,12 +36,10 @@ class ModifyData extends React.Component {
             返回
           </Button>
         </div>
-        <div style={{ margin: '24px 24px 0' }}>
-          <Card title='Agent数据'>
-            <AgentData/>
-          </Card>
+        <div style={{ margin: '40px 24px 0 30px' }}>
+          <AgentData/>
         </div>
-        <div style={{ margin: '24px 24px 0' }}>
+        <div style={{ margin: '0px 24px 0' }}>
           <Company type={1}/>
         </div>
         <div className={styles.con} style={{ margin: '24px 24px 0' }}>
