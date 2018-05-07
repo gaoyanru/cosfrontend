@@ -40,7 +40,7 @@ class Index extends React.Component {
       return
     }
     this.props.history.push({
-      pathname: '/detail',
+      pathname: '/datamanagementDetail',
       state: {
         key: item
       }
