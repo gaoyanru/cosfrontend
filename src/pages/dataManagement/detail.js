@@ -49,9 +49,7 @@ class ModifyData extends React.Component {
               <div>ssss</div>
             </TabPane>
             <TabPane className={styles['basic-info']} tab="外勤任务" key="2">
-              <OutWork
-                Id={this.state.item.Id}
-              />
+              <OutWork/>
             </TabPane>
             <TabPane className={styles['basic-info']} tab="记账服务" key="3">
               <div>sssss</div>
