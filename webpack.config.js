@@ -225,7 +225,7 @@ module.exports = {
       '@': path.join(__dirname, 'src/')
     }
   },
-  devtool: 'source-map'
+  devtool: 'cheap-module-source-map'
   // eval： 生成代码 每个模块都被eval执行，并且存在@sourceURL
   //
   // cheap-eval-source-map： 转换代码（行内） 每个模块被eval执行，并且sourcemap作为eval的一个dataurl
