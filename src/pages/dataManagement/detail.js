@@ -53,7 +53,7 @@ class ModifyData extends React.Component {
           <AgentData/>
         </div>
         <div style={{ margin: '0px 24px 0' }}>
-          <Company type={1}/>
+          <Company companyId={this.state.companyItem.Id} />
         </div>
         <div className={styles.con} style={{ margin: '24px 24px 0' }}>
           <Tabs defaultActiveKey="1" onChange={this.callback}>
