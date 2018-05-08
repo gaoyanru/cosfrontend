@@ -57,7 +57,8 @@
     "redux-actions": "^2.2.1",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
-    "title-notify": "^1.0.13"
+    "title-notify": "^1.0.13",
+    "moment": "^2.19.2"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.3",
