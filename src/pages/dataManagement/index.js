@@ -36,15 +36,12 @@ class Index extends React.Component {
     })
   }
   goCustomerInfo (item, event) {
-    console.log(event.currentTarget, 'item')
+    console.log(item, 'item')
     if (event.target.className !== 'ant-card-head-title') {
       return
     }
     this.props.history.push({
-      pathname: '/datamanagementDetail',
-      state: {
-        key: item
-      }
+      pathname: `/datamanagementDetail/${item.Id}/${item.CompanyName}`
     })
     // this.props.history.push('/customerDetail')
   }

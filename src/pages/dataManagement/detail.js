@@ -18,13 +18,9 @@ class ModifyData extends React.Component {
     this.callback = this.callback.bind(this)
   }
   componentWillMount () {
-    console.log(this.props.location, 'key')
-    if (!this.props.location.state) {
-      this.props.history.push('/datamanagement')
-      return
-    }
+    console.log(this.props, 'key')
     this.setState({
-      companyItem: this.props.location.state.key
+      companyItem: this.props.match.params
     })
   }
   back () {
