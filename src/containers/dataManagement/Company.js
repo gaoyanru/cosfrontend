@@ -83,10 +83,12 @@ class Company extends React.Component {
     this.getCompanyDetailByUrl = this.getCompanyDetailByUrl.bind(this)
     this.toggleEdit = this.toggleEdit.bind(this)
     this.toggleModal = this.toggleModal.bind(this)
+    this.init = this.init.bind(this)
   }
   static get propTypes () {
     return {
-      companyId: PropTypes.any.isRequired
+      companyId: PropTypes.any.isRequired,
+      setCompanyName: PropTypes.func.isRequired
     }
   }
   // 获取直营公司列表
@@ -134,6 +136,8 @@ class Company extends React.Component {
           BusinessScope
         }
       })
+      // 设置公司名称
+      this.props.setCompanyName(CompanyName)
     }
   }
   // 获取区域列表
@@ -263,8 +267,6 @@ class Company extends React.Component {
       }
       this.setState({
         companyInfo
-      }, () => {
-        console.log(this.state.companyInfo)
       })
     }
   }
@@ -307,7 +309,7 @@ class Company extends React.Component {
     })
     // flag为false，则为保存
     if (!flag) {
-      this.props.form.validateFields((err, values) => {
+      this.props.form.validateFields(async (err, values) => {
         if (err) {
           return
         }
@@ -323,6 +325,13 @@ class Company extends React.Component {
           ...serviceInfo,
           ...values
         }
+        const url = `/api/customer/update/${this.props.companyId}?isOrder=0`
+        const { status } = await http(url, 'PUT', {
+          data: params
+        })
+        if (status) {
+          this.init()
+        }
       })
     }
   }
@@ -332,15 +341,18 @@ class Company extends React.Component {
       isModalVisible: !this.state.isModalVisible
     })
   }
-  componentWillMount () {
-    this.getSubsidiaryList().then(() => {
-      return this.getCompany()
-    }).then(() => {
+  async init () {
+    this.getCompany().then(() => {
       const { CityCode: cityCode, SubsidiaryId: subsidiaryId } = this.state.selectSubsidiary
       Promise.all([
         this.getAreaList(cityCode),
         this.getSalesList(subsidiaryId)
       ])
+    })
+  }
+  componentWillMount () {
+    this.getSubsidiaryList().then(() => {
+      this.init()
     })
   }
   render () {
