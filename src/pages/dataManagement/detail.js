@@ -13,11 +13,11 @@ class ModifyData extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      companyItem: {},
-      salerList: null
+      companyItem: {}
     }
     this.back = this.back.bind(this)
     this.callback = this.callback.bind(this)
+    this.setCompanyName = this.setCompanyName.bind(this)
   }
   componentWillMount () {
     console.log(this.props, 'key')
@@ -30,6 +30,14 @@ class ModifyData extends React.Component {
   }
   callback (key) {
     console.log(key)
+  }
+  setCompanyName (name) {
+    this.setState({
+      companyItem: {
+        ...this.state.companyItem,
+        CompanyName: name
+      }
+    })
   }
   render () {
     return (
@@ -44,13 +52,13 @@ class ModifyData extends React.Component {
           <AgentData/>
         </div>
         <div style={{ margin: '0px 24px 0' }}>
-          <Company companyId={this.state.companyItem.Id} />
+          <Company companyId={this.state.companyItem.Id} setCompanyName={this.setCompanyName} />
         </div>
         <div className={styles.con} style={{ margin: '24px 24px 0' }}>
           <Tabs defaultActiveKey="1" onChange={this.callback}>
             <TabPane className={styles['basic-info']} tab="订单信息" key="1">
               <OrderInfo
-                salerList={this.state.salerList}
+                Id={this.state.companyItem.Id}
               />
             </TabPane>
             <TabPane className={styles['basic-info']} tab="外勤任务" key="2">

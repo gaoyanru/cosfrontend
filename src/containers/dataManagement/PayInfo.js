@@ -3,7 +3,7 @@ import styles from '@/stylus/modifydata'
 import _ from 'lodash'
 import moment from 'moment'
 import Rif from '@/components/RIF'
-import UploadFile from '@/containers/dataManagement/UploadFile'
+// import UploadFile from '@/containers/dataManagement/UploadFile'
 import PayTypeSelect from '@/containers/dataManagement/PayTypeSelect'
 import { Row, Col, Button, DatePicker, Select, message, Input } from 'antd'
 class PayInfo extends React.Component {
@@ -39,6 +39,7 @@ class PayInfo extends React.Component {
         <Rif key="pay4" if={(+this.state.PayTypeId) < 5}>
           <span>
             <label className="ant-form-item-required">凭证：</label>
+            <img src={this.state.PayImagePath + '?x-oss-process=image/resize,m_lfit,h_35,w_50'}/>
             {/* <UploadFile value={this.state.PayImagePath} additional="?x-oss-process=image/resize,m_lfit,h_35,w_50" onChange={v => { this.setStateChange({ PayImagePath: v }) }} /> */}
           </span>
         </Rif>

@@ -15,11 +15,9 @@ class Main extends React.Component {
           data={this.props.data}
         />
         {
-          /*
           <PayInfo
             data={this.props.data}
           />
-          */
         }
       </div>
     )

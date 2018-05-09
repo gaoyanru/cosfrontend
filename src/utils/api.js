@@ -26,10 +26,10 @@ export const fetchOrderDetail = (id, payload) => {
   return http('api/customers/orders/' + id, payload)
 }
 export const fetchCustomerServiceOutworkDetail = (id, payload) => {
-  return http('api/customers/' + id + '/maintasks', payload)
+  return http('/api/customers/' + id + '/maintasks', payload)
 }
 export const fetchOutworkDetail = (id, payload) => {
-  return http('api/customers/' + id + '/outertasksub', payload)
+  return http('/api/customers/' + id + '/outertasksub', payload)
 }
 export const fetchAgentDetail = (id) => {
   return http('api/customers/' + id + '/accountant')
@@ -44,23 +44,23 @@ export const fetchUsersAccount = (payload) => {
 // 数据管理
 // 记账服务头部
 export const fetchAgentServiceData = (id) => {
-  return http('api/tally/getheadinfo/' + id)
+  return http('/api/tally/getheadinfo/' + id)
 }
 // 记账服务列表
 export const fetchAgentServiceList = (id) => {
-  return http('api/tally/' + id)
+  return http('/api/tally/' + id)
 }
 // 操作记录
 export const fetchOperateList = (id) => {
-  return http('api/orders/rz/' + id)
+  return http('/api/orders/rz/' + id)
 }
 // 签单销售
 export const fetchSalesList = (id) => {
-  return http('api/orders/sales/' + id)
+  return http('/api/orders/sales/' + id)
 }
 
 export const fetchGetmainitemList = () => {
-  return http('api/orders/getmainitemlist')
+  return http('/api/orders/getmainitemlist')
 }
 
 export const fetchDataEditOrderList = (id) => {

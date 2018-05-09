@@ -2,10 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Modal from '@/components/common/Modal'
 import ContractModify from '@/containers/dataManagement/ContractModify'
-import { updateGetmainitemList, updateOrderList } from '@/actions/dataedit'
+import { updateGetmainitemList, updateOrderList, updateOrderItem } from '@/actions/dataedit'
 class Demo1 extends React.Component {
   componentWillMount () {
     this.props.dispatch(updateGetmainitemList())
+<<<<<<< HEAD
+=======
+    this.props.dispatch(updateOrderItem(289020))
+>>>>>>> 0664b7633ede821946407c5b29e64a5d1a9fa7f1
   }
   componentDidMount () {
     const modal = Modal.show({

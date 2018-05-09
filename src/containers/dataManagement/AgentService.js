@@ -41,7 +41,7 @@ export default class AgentService extends React.Component {
     })
   }
   render () {
-    const data = this.state.headData
+    const data = this.state.headData || {}
     const listData = this.state.listData
     const columns = [{
       title: '合同编号',

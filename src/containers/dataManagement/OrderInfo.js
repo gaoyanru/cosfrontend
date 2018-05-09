@@ -1,30 +1,18 @@
-import { Row, Col, Icon, Table, Form, Select } from 'antd'
+import { Row, Col, Icon, Table, Form, Select, Button } from 'antd'
 import React from 'react'
 import { connect } from 'react-redux'
 import styles from '@/stylus/modifydata'
 import Modal from '@/components/common/Modal'
 import ContractModify from '@/containers/dataManagement/ContractModify'
-import { fDate, fOrderStatus, fOrderSource, fServiceStatus, fCheckStatus, fAccountantStatus, fContractStatus } from '@/utils/filters'
 import { updateGetmainitemList, updateOrderList, updateOrderItem } from '@/actions/dataedit'
+import { fDate, fOrderStatus, fOrderSource, fServiceStatus, fCheckStatus, fAccountantStatus, fContractStatus, fAssigningObject } from '@/utils/filters'
 const FormItem = Form.Item
 const Option = Select.Option
 
 class OrderInfo extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      salerList: [{
-        Id: 196,
-        RealName: '于洋'
-      }, {
-        Id: 197,
-        RealName: 'da洋'
-      }]
-    }
-  }
   componentWillMount () {
     this.props.dispatch(updateGetmainitemList())
-    this.props.dispatch(updateOrderList(289020))
+    this.props.dispatch(updateOrderList(this.props.Id))
   }
   editOrder (item, index) {
     this.props.dispatch(updateOrderItem(item))
@@ -34,7 +22,7 @@ class OrderInfo extends React.Component {
       ),
       title: '修改订单',
       mask: true,
-      width: 1000,
+      width: 1100,
       okText: '保存',
       cancelText: '',
       onOk: () => {
@@ -68,7 +56,7 @@ class OrderInfo extends React.Component {
       render: val => fDate(val)
     }, {
       title: '合同状态',
-      dataIndex: 'Status',
+      dataIndex: 'OrderStatus',
       render: (val, row) => fContractStatus(val)
     }, {
       title: '服务状态',
@@ -76,10 +64,11 @@ class OrderInfo extends React.Component {
       render: val => fServiceStatus(val)
     }, {
       title: '任务单号',
-      dataIndex: 'taskId'
+      dataIndex: 'TaskBillNo'
     }, {
       title: '分配对象',
-      dataIndex: 'person'
+      dataIndex: 'AssigningObject',
+      render: val => fAssigningObject(val)
     }, {
       title: '外勤状态',
       dataIndex: 'OutWorkerStatus',
@@ -95,7 +84,7 @@ class OrderInfo extends React.Component {
         {
           orderList.map((item, index) => {
             return (
-              <div key={item.OrderId}>
+              <div key={item.OrderId} style={{ marginBottom: '50px' }}>
                 <Row>
                   <Col span={5}>
                     <label>订单号：</label>
@@ -107,11 +96,7 @@ class OrderInfo extends React.Component {
                   </Col>
                   <Col span={5}>
                     <label>签单销售：</label>
-                    <Select defaultValue={item.OrderSalesId} style={{ width: 150 }}>
-                      {this.state.salerList.map(item => {
-                        return <Option key={item.Id} value={item.Id}>{item.RealName}</Option>
-                      })}
-                    </Select>
+                    <span>{item.OrderSalesName}</span>
                   </Col>
                   <Col span={5}>
                     <label>签单日期：</label>
@@ -122,7 +107,7 @@ class OrderInfo extends React.Component {
                     <Icon className={styles['icon-size']} type="edit" onClick={e => this.editOrder(item, index)}/>
                   </Col>
                 </Row>
-                <Row>
+                <Row style={{ marginBottom: '20px' }}>
                   <Col span={5}>
                     <label>创建日期：</label>
                     <span>{fDate(item.CreateDate)}</span>
@@ -156,6 +141,9 @@ class OrderInfo extends React.Component {
             )
           })
         }
+        <div style={{ textAlign: 'center' }}>
+          <Button type="primary">保存</Button>
+        </div>
       </div>
     )
   }
