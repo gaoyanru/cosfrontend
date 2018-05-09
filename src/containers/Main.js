@@ -42,7 +42,7 @@ class Main extends React.Component {
       </Menu>
     )
     const currentUser = {
-      RealName: 'kefu'
+      RealName: JSON.parse(sessionStorage.getItem('userInfo'))
     }
     let menuList = {
       menuParent: '数据管理',
@@ -60,6 +60,8 @@ class Main extends React.Component {
       menuList.child = ''
     }
     if (this.props.location.pathname === '/customerDetail') {
+      menuList.menuParent = '客服中心'
+      menuList.children = '客户'
       menuList.child = '详情'
     }
     console.log(this.props.location.pathname, this.props.location.pathname === '/customerDetail', 'props')

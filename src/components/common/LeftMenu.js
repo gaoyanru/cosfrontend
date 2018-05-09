@@ -4,24 +4,30 @@ import { Link } from 'react-router-dom'
 const SubMenu = Menu.SubMenu
 export default class LeftMenu extends React.Component {
   render () {
-    console.log(sessionStorage.getItem('userInfo'), 'info')
-    const userInfo = sessionStorage.getItem('userInfo')
+    console.log(sessionStorage.getItem('userInfo'), JSON.parse(sessionStorage.getItem('userInfo')) === 'kefu', 'info')
+    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
     return (
       <Menu theme="dark" mode="inline">
-        <SubMenu key="sub1" title={<span><Icon type="customer-service" /><span>客服中心</span></span>}>
-          <Menu.Item key="1">
-            <Link to="/customer">
-              <span>客户</span>
-            </Link>
-          </Menu.Item>
-        </SubMenu>
-        <SubMenu key="sub3" title={<span><Icon type="edit" /><span>数据管理</span></span>}>
-          <Menu.Item key="3">
-            <Link to="/datamanagement">
-              <span>数据修改</span>
-            </Link>
-          </Menu.Item>
-        </SubMenu>
+        {
+          (userInfo === 'kefu') &&
+          <SubMenu key="sub1" title={<span><Icon type="customer-service" /><span>客服中心</span></span>}>
+            <Menu.Item key="1">
+              <Link to="/customer">
+                <span>客户</span>
+              </Link>
+            </Menu.Item>
+          </SubMenu>
+        }
+        {
+          (userInfo === 'dm') &&
+          <SubMenu key="sub3" title={<span><Icon type="edit" /><span>数据管理</span></span>}>
+            <Menu.Item key="3">
+              <Link to="/datamanagement">
+                <span>数据修改</span>
+              </Link>
+            </Menu.Item>
+          </SubMenu>
+        }
         {/* <SubMenu key="sub2" title={<span><Icon type="user" /><span>用户</span></span>}>
           <Menu.Item key="2">
             <Link to="/usersAccount">
