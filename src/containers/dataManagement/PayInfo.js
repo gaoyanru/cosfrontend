@@ -6,6 +6,9 @@ import Rif from '@/components/RIF'
 // import UploadFile from '@/containers/dataManagement/UploadFile'
 import PayTypeSelect from '@/containers/dataManagement/PayTypeSelect'
 import { Row, Col, Button, DatePicker, Select, message, Input } from 'antd'
+import stores from '@/stores'
+import { updateOrderItem } from '@/actions/dataedit'
+const { dispatch } = stores
 class PayInfo extends React.Component {
   constructor (props) {
     super(props)
@@ -56,55 +59,61 @@ class PayInfo extends React.Component {
 class Main extends React.Component {
   constructor (props) {
     super(props)
+    const { contractInfo, mainItemList, orderItem } = stores.getState().dataedit
     this.state = {
-      OrderSourceId: '' + props.data.OrderSourceId,
-      PayInfoList: props.data.PayInfoList
+      contractInfo,
+      mainItemList,
+      orderItem
     }
+    this.unsubscribe = stores.subscribe(() => {
+      const state = stores.getState()
+      const { contractInfo, mainItemList, orderItem } = state.dataedit
+      this.setState({
+        contractInfo,
+        mainItemList,
+        orderItem
+      })
+    })
     this.onFiledChange = this.onFiledChange.bind(this)
     this.getFieldsValue = this.getFieldsValue.bind(this)
     this.validateField = this.validateField.bind(this)
   }
-  componentWillReceiveProps (nextProps) {
-    const data = nextProps.data
-    if (data && data.OrderSalesId) {
-      let nextState = _.pick(data, ['OrderSourceId', 'PayInfoList'])
-      _.each(nextState.PayInfoList, pay => {
-        pay.id = _.uniqueId('pid_')
-        if (pay.PayTime) {
-          pay.PayTime = moment(pay.PayTime)
-        }
-      })
-      this.setState(nextState)
-    }
+  componentWillUnmount () {
+    this.unsubscribe()
   }
   onAdd (index) {
-    let paylist = _.cloneDeep(this.state.PayInfoList)
-    paylist.splice(index + 1, 0, { PayTypeId: 1, id: _.uniqueId('pid_') })
-    this.setState({ PayInfoList: paylist })
+    const { orderItem } = this.state
+    const { PayInfoList, OrderSourceId } = orderItem
+    PayInfoList.splice(index + 1, 0, { PayTypeId: 1, id: _.uniqueId('pid_') })
+    orderItem.PayInfoList = PayInfoList
+    dispatch(updateOrderItem(orderItem))
   }
   onDelete (index) {
-    let paylist = _.cloneDeep(this.state.PayInfoList)
-    if (paylist.length === 0) {
-      message.info('支付信息不能为空!')
-      return
-    }
-    paylist.splice(index, 1)
-    this.setState({ PayInfoList: paylist })
+    const { orderItem } = this.state
+    const { PayInfoList, OrderSourceId } = orderItem
+    PayInfoList.splice(index, 1)
+    orderItem.PayInfoList = PayInfoList
+    dispatch(updateOrderItem(orderItem))
   }
   onFiledChange (index, value) {
-    let paylist = _.cloneDeep(this.state.PayInfoList)
+    const { orderItem } = this.state
+    const { PayInfoList, OrderSourceId } = orderItem
+    let paylist = PayInfoList
     if (_.isObject(value.PayTime)) {
       value.PayTime = value.PayTime.format('YYYY-MM-DD')
     }
     paylist[index] = value
-    this.setState({ PayInfoList: paylist })
+    orderItem.PayInfoList = paylist
+    dispatch(updateOrderItem(orderItem))
   }
   getFieldsValue () {
     return this.state
   }
   validateField () {
-    var data = this.state
-    const paylist = data.PayInfoList
+    const { orderItem } = this.state
+    const { PayInfoList, OrderSourceId } = orderItem
+    // var data = this.state
+    const paylist = PayInfoList
     let msg
     for (let i = 0; i < paylist.length; i++) {
       msg = validatePay(paylist[i])
@@ -125,6 +134,7 @@ class Main extends React.Component {
     }
   }
   render () {
+    const { PayInfoList, OrderSourceId } = this.state.orderItem
     return (
       <div className={styles['contract-form']}>
         <div className={styles.title}>
@@ -133,7 +143,7 @@ class Main extends React.Component {
         <Row style={{padding: '12px 0'}}>
           <Col span={4}>
             <label>订单来源：</label>
-            <Select value={this.state.OrderSourceId + ''} style={{ width: '80px' }} onChange={v => {
+            <Select value={OrderSourceId + ''} style={{ width: '80px' }} onChange={v => {
               this.setState({
                 OrderSourceId: v
               })
@@ -144,7 +154,7 @@ class Main extends React.Component {
           </Col>
           <Col span={20}>
             {
-              this.state.PayInfoList.map((pay, index) => {
+              PayInfoList.map((pay, index) => {
                 return (
                   <PayInfo
                     key={pay.id || pay.Id}

@@ -11,14 +11,8 @@ class Main extends React.Component {
   render () {
     return (
       <div>
-        <ContractInfo
-          data={this.props.data}
-        />
-        {
-          <PayInfo
-            data={this.props.data}
-          />
-        }
+        <ContractInfo />
+        <PayInfo />
       </div>
     )
   }
