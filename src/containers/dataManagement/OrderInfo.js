@@ -2,9 +2,24 @@ import React from 'react'
 import styles from '@/stylus/modifydata'
 import Modal from '@/components/common/Modal'
 import ContractModify from '@/containers/dataManagement/ContractModify'
-import { Row, Col, Icon, Table } from 'antd'
+import { Row, Col, Icon, Table, Form, Select } from 'antd'
 import { fDate, fOrderStatus, fOrderSource, fServiceStatus, fCheckStatus, fAccountantStatus, fContractStatus } from '@/utils/filters'
+const FormItem = Form.Item
+const Option = Select.Option
+
 class OrderInfo extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      salerList: [{
+        Id: 196,
+        RealName: '于洋'
+      }, {
+        Id: 197,
+        RealName: 'da洋'
+      }]
+    }
+  }
   editOrder (item, index) {
     console.log(item, 'item')
     const modal = Modal.show({
@@ -49,6 +64,7 @@ class OrderInfo extends React.Component {
         CreateDate: '2017-12-18T18:15:49',
         OrderSourceId: 1,
         OrderStatus: 4,
+        OrderSalesId: 196,
         CrmOrderItems: [{
           OrderItemId: 141842,
           OrderId: 8811,
@@ -143,7 +159,11 @@ class OrderInfo extends React.Component {
                   </Col>
                   <Col span={5}>
                     <label>签单销售：</label>
-                    <span>{item.OrderSalesName}</span>
+                    <Select defaultValue={item.OrderSalesId} style={{ width: 150 }}>
+                      {this.state.salerList.map(item => {
+                        return <Option key={item.Id} value={item.Id}>{item.RealName}</Option>
+                      })}
+                    </Select>
                   </Col>
                   <Col span={5}>
                     <label>签单日期：</label>
@@ -165,7 +185,14 @@ class OrderInfo extends React.Component {
                   </Col>
                   <Col span={5}>
                     <label>订单状态：</label>
-                    <span>{fOrderStatus(item.OrderStatus, item.OrderSourceId)}</span>
+                    <Select defaultValue={'' + item.OrderStatus} style={{ width: 150 }}>
+                      <Option key='1' value='1'>审单待审核</Option>
+                      <Option key='2' value='2'>审单已审核</Option>
+                      <Option key='3' value='3'>审单驳回</Option>
+                      <Option key='4' value='4'>财务已审核/网店到款</Option>
+                      <Option key='5' value='5'>财务已驳回</Option>
+                      <Option key='6' value='6'>财务确认</Option>
+                    </Select>
                   </Col>
                 </Row>
                 <Table

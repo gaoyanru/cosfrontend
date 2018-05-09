@@ -3,7 +3,7 @@ import styles from '@/stylus/modifydata'
 import _ from 'lodash'
 import moment from 'moment'
 import Rif from '@/components/RIF'
-// import UploadFile from '@/containers/UploadFile'
+import UploadFile from '@/containers/dataManagement/UploadFile'
 import PayTypeSelect from '@/containers/dataManagement/PayTypeSelect'
 import { Row, Col, Button, DatePicker, Select, message, Input } from 'antd'
 class PayInfo extends React.Component {
@@ -22,7 +22,7 @@ class PayInfo extends React.Component {
       <Row style={{ lineHeight: '34px' }}>
         <span key="pay1">
           <label className="ant-form-item-required">支付方式：</label>
-          {/* <PayTypeSelect width={120} value={this.state.PayTypeId} onChange={v => { this.setStateChange({ PayTypeId: v }) }} /> */}
+          <PayTypeSelect width={120} value={this.state.PayTypeId} onChange={v => { this.setStateChange({ PayTypeId: v }) }} />
         </span>
         <Rif key="pay2" if={(+this.state.PayTypeId) < 5}>
           <span>
@@ -78,7 +78,7 @@ class Main extends React.Component {
   }
   onAdd (index) {
     let paylist = _.cloneDeep(this.state.PayInfoList)
-    paylist.splice(index + 1, 0, { PayTypeId: 0, id: _.uniqueId('pid_') })
+    paylist.splice(index + 1, 0, { PayTypeId: 1, id: _.uniqueId('pid_') })
     this.setState({ PayInfoList: paylist })
   }
   onDelete (index) {
