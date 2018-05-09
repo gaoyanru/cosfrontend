@@ -41,7 +41,7 @@ class Index extends React.Component {
       return
     }
     this.props.history.push({
-      pathname: `/datamanagementDetail/${item.Id}/${item.CompanyName}`
+      pathname: `/datamanagementDetail/${item.Id}`
     })
     // this.props.history.push('/customerDetail')
   }

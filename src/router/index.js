@@ -32,7 +32,7 @@ const configs = [
   { path: '/usersRoles', component: modules.UsersRoles },
   { path: '/usersAddStrategy', component: modules.UsersAddStrategy },
   { path: '/datamanagement', component: modules.ModifyData },
-  { path: '/datamanagementDetail/:Id/:CompanyName', component: modules.ModifyDataDetail }
+  { path: '/datamanagementDetail/:Id', component: modules.ModifyDataDetail }
 ]
 const router = () => (
   <Provider store={store}>
