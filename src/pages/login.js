@@ -32,7 +32,11 @@ class Login extends React.Component {
               loading: true,
               isLogin: true
             })
-            this.props.history.push('/customer')
+            if (loginRes.data.username === 'kefu') {
+              this.props.history.push('/customer')
+            } else if (loginRes.data.username === 'dm') {
+              this.props.history.push('/datamanagement')
+            }
           } else {
             this.setState({
               loading: false,
