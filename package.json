@@ -46,6 +46,7 @@
     "imageviewer": "^0.6.0",
     "jquery": "^3.2.1",
     "js-cookie": "^2.1.4",
+    "moment": "^2.22.1",
     "pilipa": "1.0.23",
     "prop-types": "^15.6.1",
     "react": "^16.0.0",
