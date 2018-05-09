@@ -2,123 +2,12 @@ import React from 'react'
 import styles from '@/stylus/modifydata'
 import _ from 'lodash'
 import moment from 'moment'
+import Modal from '@/components/common/Modal'
 import AddedValue from '@/containers/searchComponent/AddedValue'
-import { Button, message } from 'antd'
+import { Button, Col, DatePicker, Input, message, Row, Select } from 'antd'
 import { fContractStatus, fDate } from '@/utils/filters'
-class Accounting extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      data: props.data
-    }
-    this.setFieldValue = this.setFieldValue.bind(this)
-    this.getFieldValue = this.getFieldValue.bind(this)
-    this.validateField = this.validateField.bind(this)
-  }
-  setFieldValue (obj) {
-    let data = _.cloneDeep(this.state.data)
-    data = _.extend(data, obj)
-    if (obj.ServiceStart) {
-      const m = parseInt(data.OrderMonths || 0) + parseInt(data.GiftMonths || 0)
-      if (!m) {
-        message.error('请先设置服务期限')
-        return
-      }
-      data.ServiceEnd = moment(obj.ServiceStart).add(m - 1, 'months').endOf('month').format('YYYY-MM-DD')
-    }
-  }
-  validateField () {
-    const data = this.state.data
-    if (!data.ContractNo) return '请填写合同编号'
-    if (!data.ChildItemId) return '请选择子项目'
-    if (!data.OrderMonths) return '请填写服务期限'
-    if (!data.Amount) return '请填写费用金额'
-    return null
-  }
-  getFieldValue () {
-    return this.state.data
-  }
-  render () {
-    const data = this.props.data
-    console.log(data, 'data')
-    return (
-      <tbody key="group1">
-        <tr>
-          <td>
-            <Input size="small" defaultValue={data.ContractNo} onChange={e => {
-              this.setFieldValue({
-                ContractNo: e.target.value
-              })
-            }}
-            />
-          </td>
-          <td>记账报税</td>
-          <td>
-            <AddedValue size="small" hideAll={true} value={data.ChildItemId} onChange={v => {
-              this.setFieldValue({
-                ChildItemId: +v
-              })
-            }}
-            />
-          </td>
-          <td>
-            <Input size="small" defaultValue={data.Amount} onChange={e => {
-              this.setFieldValue({
-                Amount: e.target.value
-              })
-            }}
-            />
-          </td>
-          <td>
-            <Input size="small" maxLength="50" defaultValue={data.Remark} onChange={e => {
-              this.setFieldValue({
-                Remark: e.target.value
-              })
-            }}
-            />
-          </td>
-          <td></td>
-          <td></td>
-          <td>
-            {fContractStatus(data.Status)}
-          </td>
-          <td>
-            <Button size="small" onClick={this.props.onDelete}>删除</Button>
-          </td>
-        </tr>
-        <tr>
-          <td style={{ background: '#f8d795', padding: '3px 12px' }}>
-            <span>服务期限：
-              <Input maxLength="2" size="small" defaultValue={data.OrderMonths} style={{ width: '35px' }} onChange={e => {
-                this.setFieldValue({
-                  OrderMonths: e.target.value
-                })
-              }}
-              />
-              +
-              <Input maxLength="2" size="small" defaultValue={data.GiftMonths} style={{ width: '25px' }} onChange={e => {
-                this.setFieldValue({
-                  GiftMonths: e.target.value
-                })
-              }}
-              />
-            </span>
-            <span>服务时间：
-              <Input size="small" defaultValue={fDate(data.ServiceStart)} style={{ width: '90px' }} onChange={e => {
-                this.setFieldValue({
-                  ServiceStart: e.target.value
-                })
-              }}
-              />
-              -
-              <span>{this.state.data.ServiceEnd}</span>
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    )
-  }
-}
+import ContractType from '@/containers/dataManagement/ContractType'
+const { TextArea } = Input
 class Main extends React.Component {
   constructor (props) {
     super(props)
@@ -134,7 +23,18 @@ class Main extends React.Component {
     this.state = _.extend(this.state, state)
   }
   addNew () {
-    console.log('添加合同')
+    const modal = Modal.show({
+      content: (
+        <ContractType />
+      ),
+      title: '合同类型',
+      mask: true,
+      width: 400,
+      footer: null,
+      onCancel: () => {
+        modal.hide()
+      }
+    })
   }
   setAmount () {
     console.log('aa')
@@ -155,7 +55,11 @@ class Main extends React.Component {
       <div className={styles['contract-form']}>
         <div className={styles.title}>
           <span>合同信息</span>
-          <Button className={styles.fr} type="primary" onClick={this.addNew}>添加合同</Button>
+          <Button
+            className={styles['add-contract']}
+            size="small"
+            type="primary"
+            onClick={this.addNew}>添加合同</Button>
         </div>
         <div>
           <table>
@@ -164,24 +68,105 @@ class Main extends React.Component {
                 <th style={{width: '200px'}}><span>合同编号</span></th>
                 <th style={{width: '100px'}}><span>项目</span></th>
                 <th style={{width: '100px'}}><span>子项目</span></th>
-                <th style={{width: '150px'}}><span>费用</span></th>
-                <th style={{width: '150px'}}><span>备注</span></th>
-                <th style={{width: '100px'}}>领用金额</th>
-                <th style={{width: '100px'}}>退费金额</th>
-                <th style={{width: '100px'}}>合同状态</th>
-                <th style={{width: '160px'}}><span>操作</span></th>
+                <th style={{width: '145px'}}><span>费用</span></th>
+                <th style={{width: '145px'}}><span>备注</span></th>
+                <th style={{width: '90px'}}>领用金额</th>
+                <th style={{width: '90px'}}>退费金额</th>
+                <th style={{width: '90px'}}>合同状态</th>
+                <th style={{width: '200px'}}><span>操作</span></th>
               </tr>
             </thead>
-            {
-              this.state.type1 &&
-              <Accounting
-                onAmountChange={this.setAmount}
-                ref={e => { this.component1 = e }}
-                data={this.state.type1}
-                onDelete={e => { this.delete(1) }}
-              />
-            }
+            <tbody>
+              <tr>
+                <td>
+                  <Input size="small" placeholder="Basic usage" />
+                </td>
+                <td>记账报税</td>
+                <td>
+                  <Select defaultValue="lucy" size="small" style={{ width: 120 }}>
+                    <Option value="jack">Jack</Option>
+                    <Option value="lucy">Lucy</Option>
+                    <Option value="disabled" disabled>Disabled</Option>
+                    <Option value="Yiminghe">yiminghe</Option>
+                  </Select>
+                </td>
+                <td>
+                  <Input size="small" placeholder="" />
+                </td>
+                <td>
+                  <Input size="small" placeholder="" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <Button size="small">添加子项目</Button>
+                  <Button size="small">删除</Button>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  colSpan={9}
+                  style={{
+                    background: 'rgb(248, 215, 149)',
+                    padding: '3px 12px',
+                    textAlign: 'left'
+                  }}
+                >
+                  服务期限：
+                  <Input size="small" style={{width: '35px'}} maxLength={2} />
+                  &nbsp;
+                  +
+                  &nbsp;
+                  <Input size="small" style={{width: '35px'}} maxLength={2} />
+                  &nbsp;&nbsp;
+                  服务时间：
+                  <DatePicker size="small" />
+                  -
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td
+                  colSpan={9}
+                  className={styles['footer']}
+                >
+                  <ul>
+                    <li>
+                      记账报税费用：100
+                    </li>
+                    <li>
+                      财务服务费用：100
+                    </li>
+                    <li>
+                      外勤服务费用：0
+                    </li>
+                    <li>
+                      代收费用：0
+                    </li>
+                    <li>
+                      订单总金额：200
+                    </li>
+                    <li>
+                      <label className="ant-form-item-required">签订日期：</label>
+                      <DatePicker size="small" />
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </tfoot>
           </table>
+          <div style={{marginTop: '10px'}}>
+            <Row>
+              <Col className="gutter-row" span={2}>
+                <label style={{fontSize: '12px'}}>备注信息：</label>
+              </Col>
+              <Col className="gutter-row" span={22}>
+                <TextArea />
+              </Col>
+            </Row>
+          </div>
         </div>
       </div>
     )

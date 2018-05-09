@@ -51,3 +51,11 @@ export const fetchAgentServiceList = (id) => {
 export const fetchOperateList = (id) => {
   return http('api/customer/rz/' + id)
 }
+
+export const fetchGetmainitemList = () => {
+  return http('api/orders/getmainitemlist')
+}
+
+export const fetchDataEditOrderItem = (id) => {
+  return http(`/api/orders/detailswithcontract/${id}`)
+}
