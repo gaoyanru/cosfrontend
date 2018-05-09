@@ -7,6 +7,7 @@ import Company from '@/containers/dataManagement/Company'
 import AgentService from '@/containers/dataManagement/AgentService'
 import Operate from '@/containers/dataManagement/Operate'
 import OrderInfo from '@/containers/dataManagement/OrderInfo'
+
 const TabPane = Tabs.TabPane
 class ModifyData extends React.Component {
   constructor (props) {
@@ -47,7 +48,9 @@ class ModifyData extends React.Component {
         <div className={styles.con} style={{ margin: '24px 24px 0' }}>
           <Tabs defaultActiveKey="1" onChange={this.callback}>
             <TabPane className={styles['basic-info']} tab="订单信息" key="1">
-              <OrderInfo/>
+              <OrderInfo
+                Id={this.state.companyItem.Id}
+              />
             </TabPane>
             <TabPane className={styles['basic-info']} tab="外勤任务" key="2">
               <OutWork

@@ -25,6 +25,7 @@ const Router = isPro ? BrowserRouter : HashRouter
 const basename = '/'
 const configs = [
   { path: '/', component: modules.Index, exact: true },
+  { path: '/demo1', component: modules.Demo1 },
   { path: '/customer', component: modules.CustomerService },
   { path: '/customerDetail', component: modules.CustomerDeatil },
   { path: '/usersAccount', component: modules.UsersAccount },

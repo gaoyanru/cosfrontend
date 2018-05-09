@@ -103,7 +103,7 @@ export default class AgentService extends React.Component {
           </Col>
         </Row>
         <Table
-          rowKey={record => (record.CustomerId)}
+          rowKey={record => (record.ContractNo)}
           dataSource={listData}
           columns={columns}
           pagination={false}

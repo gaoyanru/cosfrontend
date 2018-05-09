@@ -1,4 +1,5 @@
 export { default as loadIndex } from 'bundle-loader?lazy&name=[name]!@/pages/index'
+export { default as loadDemo1 } from 'bundle-loader?lazy&name=[name]!@/pages/demo1'
 export { default as loadDemo5 } from 'bundle-loader?lazy&name=[name]!@/pages/demo5'
 export { default as loadDemo6 } from 'bundle-loader?lazy&name=[name]!@/pages/demo6'
 export { default as loadLogin } from 'bundle-loader?lazy&name=[name]!@/pages/login'
