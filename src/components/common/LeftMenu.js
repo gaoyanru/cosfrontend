@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 const SubMenu = Menu.SubMenu
 export default class LeftMenu extends React.Component {
   render () {
+    console.log(sessionStorage.getItem('userInfo'), 'info')
+    const userInfo = sessionStorage.getItem('userInfo')
     return (
       <Menu theme="dark" mode="inline">
         <SubMenu key="sub1" title={<span><Icon type="customer-service" /><span>客服中心</span></span>}>
