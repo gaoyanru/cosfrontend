@@ -1,6 +1,7 @@
 import React from 'react'
 import { Table } from 'antd'
 import { fetchOperateList } from '@/utils/api'
+import { fDateT } from '@/utils/filters'
 export default class Operate extends React.Component {
   constructor (props) {
     super(props)
@@ -24,13 +25,15 @@ export default class Operate extends React.Component {
       dataIndex: 'Id'
     }, {
       title: '操作内容',
-      dataIndex: 'Content'
+      dataIndex: 'Content',
+      width: 450
     }, {
       title: '操作人',
       dataIndex: 'RealName'
     }, {
       title: '操作时间',
-      dataIndex: 'OperationTime'
+      dataIndex: 'OperationTime',
+      render: val => fDateT(val)
     }]
     return (
       <Table
