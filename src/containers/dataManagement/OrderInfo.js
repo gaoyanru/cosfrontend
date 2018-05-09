@@ -25,7 +25,7 @@ class OrderInfo extends React.Component {
       ),
       title: '修改订单',
       mask: true,
-      width: 1000,
+      width: 1100,
       okText: '保存',
       cancelText: '',
       onOk: () => {
@@ -86,7 +86,7 @@ class OrderInfo extends React.Component {
         {
           orderList.map((item, index) => {
             return (
-              <div key={item.OrderId} style={{ marginBottom: '30px' }}>
+              <div key={item.OrderId} style={{ marginBottom: '50px' }}>
                 <Row>
                   <Col span={5}>
                     <label>订单号：</label>
@@ -109,7 +109,7 @@ class OrderInfo extends React.Component {
                     <Icon className={styles['icon-size']} type="edit" onClick={e => this.editOrder(item, index)}/>
                   </Col>
                 </Row>
-                <Row>
+                <Row style={{ marginBottom: '20px' }}>
                   <Col span={5}>
                     <label>创建日期：</label>
                     <span>{fDate(item.CreateDate)}</span>
