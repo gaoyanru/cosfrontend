@@ -1,9 +1,11 @@
+import { Row, Col, Icon, Table, Form, Select } from 'antd'
 import React from 'react'
+import { connect } from 'react-redux'
 import styles from '@/stylus/modifydata'
 import Modal from '@/components/common/Modal'
 import ContractModify from '@/containers/dataManagement/ContractModify'
-import { Row, Col, Icon, Table, Form, Select } from 'antd'
 import { fDate, fOrderStatus, fOrderSource, fServiceStatus, fCheckStatus, fAccountantStatus, fContractStatus } from '@/utils/filters'
+import { updateGetmainitemList, updateOrderList } from '@/actions/dataedit'
 const FormItem = Form.Item
 const Option = Select.Option
 
@@ -19,6 +21,10 @@ class OrderInfo extends React.Component {
         RealName: 'da洋'
       }]
     }
+  }
+  componentWillMount () {
+    this.props.dispatch(updateGetmainitemList())
+    this.props.dispatch(updateOrderList(289020))
   }
   editOrder (item, index) {
     console.log(item, 'item')
@@ -42,64 +48,7 @@ class OrderInfo extends React.Component {
     })
   }
   render () {
-    const data = {
-      CustomerStatusInAgent: null,
-      CustomerId: 289020,
-      CompanyName: '1218TEST',
-      SubsidiaryId: 11,
-      SubsidiaryName: '北京爱康鼎',
-      CityCode: 110100,
-      Connector: 'test',
-      Mobile: 13122223339,
-      SalesId: 394,
-      SalesName: null,
-      AgentStatus: 2,
-      AddedValue: 2,
-      Orders: [{
-        OrderId: 8811,
-        OrderNo: 122,
-        Amount: 200,
-        OrderSalesName: 'ddd',
-        ContractDate: '2017-12-18T18:15:49',
-        CreateDate: '2017-12-18T18:15:49',
-        OrderSourceId: 1,
-        OrderStatus: 4,
-        OrderSalesId: 196,
-        CrmOrderItems: [{
-          OrderItemId: 141842,
-          OrderId: 8811,
-          MainItemId: 2,
-          MainItemName: '财务服务费',
-          ChildItemId: 4,
-          ChildItemName: '税务其他',
-          Amount: 100,
-          ContractNo: '1218TEST-b',
-          OrderMonths: null,
-          GiftMonths: null,
-          ServiceStart: null,
-          ServiceEnd: null,
-          Status: 1,
-          ServiceStatus: 2,
-          taskId: 111,
-          person: 'dada',
-          OutWorkerStatus: 1,
-          AccountantStatus: 1
-        }],
-        PayInfoList: [{
-          Id: 1779,
-          OrderId: 8811,
-          OrderSourceId: 1,
-          OrderSourceText: '电销',
-          PayTypeId: 1,
-          PayTypeText: '现金',
-          PayAccountNo: 34243424243344343,
-          PayTime: '2017-11-27T00:00:00',
-          PayImagePath: 'https://pilipa.oss-cn-beijing.aliyuncs.com/FileUploads/pay/201712/T7J7Ey63i5.jpg',
-          Status: 1,
-          Remark: null
-        }]
-      }]
-    }
+    const { orderList } = this.props
     const columns = [{
       title: '合同编号',
       dataIndex: 'ContractNo'
@@ -142,10 +91,11 @@ class OrderInfo extends React.Component {
       dataIndex: 'AccountantStatus',
       render: val => fAccountantStatus(val)
     }]
+    console.log(orderList, 'orderList')
     return (
       <div>
         {
-          data.Orders.map((item, index) => {
+          orderList.map((item, index) => {
             return (
               <div key={item.OrderId}>
                 <Row>
@@ -197,7 +147,10 @@ class OrderInfo extends React.Component {
                 </Row>
                 <Table
                   rowKey={record => record.OrderItemId}
-                  dataSource={item.CrmOrderItems}
+                  dataSource={
+                    item.CrmOrderItems.length === 1 && item.CrmOrderItems[0] === null
+                      ? [] : item.CrmOrderItems || []
+                  }
                   columns={columns}
                   pagination={false}
                 />
@@ -209,4 +162,8 @@ class OrderInfo extends React.Component {
     )
   }
 }
-export default OrderInfo
+export default connect(({dataedit}) => {
+  return {
+    ...dataedit
+  }
+})(OrderInfo)

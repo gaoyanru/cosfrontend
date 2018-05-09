@@ -63,6 +63,6 @@ export const fetchGetmainitemList = () => {
   return http('api/orders/getmainitemlist')
 }
 
-export const fetchDataEditOrderItem = (id) => {
+export const fetchDataEditOrderList = (id) => {
   return http(`/api/orders/detailswithcontract/${id}`)
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Modal from '@/components/common/Modal'
 import ContractModify from '@/containers/dataManagement/ContractModify'
-import { updateGetmainitemList, updateOrderItem } from '@/actions/dataedit'
+import { updateGetmainitemList, updateOrderList } from '@/actions/dataedit'
 class Demo1 extends React.Component {
   componentWillMount () {
     this.props.dispatch(updateGetmainitemList())
