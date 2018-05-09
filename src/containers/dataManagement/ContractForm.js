@@ -30,7 +30,11 @@ class Main extends React.Component {
         mainItemList,
         orderItem
       })
+      this.handleCost()
     })
+  }
+  componentWillMount () {
+    this.handleCost()
   }
   componentWillUnmount () {
     this.unsubscribe()
@@ -49,8 +53,13 @@ class Main extends React.Component {
       }
     })
   }
-  setAmount () {
-    console.log('aa')
+  getAmounts () {
+    const { costs } = this.state
+    let sum = 0
+    costs.map((item) => {
+      sum += item
+    })
+    return sum
   }
   getNode (index) {
     const { contractInfo, mainItemList, orderItem } = this.state
@@ -148,14 +157,35 @@ class Main extends React.Component {
   handleChange (field, index1, index2, value) {
     const { contractInfo, mainItemList, orderItem } = this.state
     const CrmOrderItems = []
-    const contractItem = contractInfo[index1][index2]
-    if (['ContractNo', 'Amount'].indexOf(field) > -1) {
+    const contractItem = contractInfo[index1][index2] || {}
+    if (['ContractNo', 'Amount', 'OrderMonths', 'GiftMonths'].indexOf(field) > -1) {
       value = value.target.value
     }
     if (field === 'MainItemId') {
       contractItem.ChildItemId = ''
     }
+    if (['ServiceStart', 'ServiceEnd'].indexOf(field) > -1) {
+      value = value.format('YYYY-MM-DD')
+    }
     contractItem[field] = value
+    // 计算其他属性
+    if (['OrderMonths', 'GiftMonths', 'ServiceStart'].indexOf(field) > -1) {
+      contractItem.OrderMonths = Number(contractItem.OrderMonths) || 0
+      contractItem.GiftMonths = Number(contractItem.GiftMonths) || 0
+      const months = contractItem.OrderMonths + contractItem.GiftMonths
+      contractItem.ServiceEnd = moment(contractItem.ServiceStart).add(months, 'M').format('YYYY-MM-DD')
+      console.log(months, contractItem.ServiceEnd, 'end')
+    }
+    contractItem.MainItemName = mainItemList[contractItem.MainItemId - 1].Name
+    if (field === 'ChildItemId') {
+      const option = _.find(mainItemList[contractItem.MainItemId - 1].Children, {Id: contractItem[field]}) || {}
+      contractItem.ChildItemName = option.ChildItemName
+    }
+    if (field === 'ContractNo') {
+      contractInfo[index1].map((item) => {
+        item.ContractNo = value
+      })
+    }
     contractInfo.map((item) => {
       item.map((item2) => {
         CrmOrderItems.push(item2)
@@ -165,13 +195,24 @@ class Main extends React.Component {
     payload.CrmOrderItems = CrmOrderItems
     dispatch(updateOrderItem(payload))
   }
+  handleChange2 (field, value) {
+    const { orderItem } = this.state
+    if (['ContractDate'].indexOf(field) > -1) {
+      value = value.format('YYYY-MM-DD')
+    }
+    orderItem[field] = value
+    dispatch(updateOrderItem(orderItem))
+  }
   operateChildItem (index, index2) {
     const { contractInfo, mainItemList, orderItem } = this.state
     const MainItemId = index === 2 ? 4 : index + 1
     const CrmOrderItems = []
+
     if (index2 === -1) {
       contractInfo[index].push({
-        MainItemId
+        MainItemId,
+        ContractNo: contractInfo[index][0].ContractNo || '',
+        MainItemName: mainItemList[MainItemId - 1]
       })
     } else {
       contractInfo[index].splice(index2, 1)
@@ -191,16 +232,15 @@ class Main extends React.Component {
     const costs = [0, 0, 0, 0]
     contractInfo.map((item) => {
       item.map((item2) => {
-        // if (item2.MainItemId) {
-
-        // }
+        costs[item2.MainItemId - 1] += Number(item2.Amount)
       })
+    })
+    this.setState({
+      costs
     })
   }
   render () {
-    // const { mainItemList } = this.props
-    // console.log(mainItemList, 'mainItemList')
-    const { contractInfo } = this.state
+    const { contractInfo, costs, orderItem } = this.state
     return (
       <div className={styles['contract-form']}>
         <div className={styles.title}>
@@ -228,27 +268,50 @@ class Main extends React.Component {
             </thead>
             <tbody>
               {this.getNode(0)}
-              <tr>
-                <td
-                  colSpan={9}
-                  style={{
-                    background: 'rgb(248, 215, 149)',
-                    padding: '3px 12px',
-                    textAlign: 'left'
-                  }}
-                >
-                  服务期限：
-                  <Input size="small" style={{width: '35px'}} maxLength={2} />
-                  &nbsp;
-                  +
-                  &nbsp;
-                  <Input size="small" style={{width: '35px'}} maxLength={2} />
-                  &nbsp;&nbsp;
-                  服务时间：
-                  <DatePicker size="small" />
-                  -
-                </td>
-              </tr>
+              {
+                contractInfo[0].length >= 1 && (
+                  <tr>
+                    <td
+                      colSpan={9}
+                      style={{
+                        background: 'rgb(248, 215, 149)',
+                        padding: '3px 12px',
+                        textAlign: 'left'
+                      }}
+                    >
+                      服务期限：
+                      <Input
+                        size="small"
+                        style={{width: '35px'}}
+                        maxLength={2}
+                        defaultValue={contractInfo[0][0].OrderMonths}
+                        onChange={this.handleChange.bind(this, 'OrderMonths', 0, 0)}
+                      />
+                      &nbsp;
+                      +
+                      &nbsp;
+                      <Input
+                        size="small"
+                        style={{width: '35px'}}
+                        maxLength={2}
+                        defaultValue={contractInfo[0][0].GiftMonths}
+                        onChange={this.handleChange.bind(this, 'GiftMonths', 0, 0)}
+                      />
+                      &nbsp;&nbsp;
+                      服务时间：
+                      <DatePicker
+                        size="small"
+                        defaultValue={moment(contractInfo[0][0].ServiceStart, 'YYYY-MM-DD')}
+                        onChange={this.handleChange.bind(this, 'ServiceStart', 0, 0)}
+                      />
+                      &nbsp;-&nbsp;
+                      {
+                        contractInfo[0][0].ServiceEnd
+                      }
+                    </td>
+                  </tr>
+                )
+              }
               {this.getNode(1)}
               {this.getNode(2)}
             </tbody>
@@ -260,23 +323,27 @@ class Main extends React.Component {
                 >
                   <ul>
                     <li>
-                      记账报税费用：100
+                      记账报税费用：{costs[0]}
                     </li>
                     <li>
-                      财务服务费用：100
+                      财务服务费用：{costs[1]}
                     </li>
                     <li>
-                      外勤服务费用：0
+                      外勤服务费用：{costs[2]}
                     </li>
                     <li>
-                      代收费用：0
+                      代收费用：{costs[3]}
                     </li>
                     <li>
-                      订单总金额：200
+                      订单总金额：{this.getAmounts()}
                     </li>
                     <li>
                       <label className="ant-form-item-required">签订日期：</label>
-                      <DatePicker size="small" />
+                      <DatePicker
+                        size="small"
+                        defaultValue={moment(orderItem.ContractDate, 'YYYY-MM-DD')}
+                        onChange={this.handleChange2.bind(this, 'ContractDate')}
+                      />
                     </li>
                   </ul>
                 </td>

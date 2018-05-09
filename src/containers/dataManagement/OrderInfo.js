@@ -6,6 +6,7 @@ import Modal from '@/components/common/Modal'
 import ContractModify from '@/containers/dataManagement/ContractModify'
 import { updateGetmainitemList, updateOrderList, updateOrderItem } from '@/actions/dataedit'
 import { fDate, fOrderStatus, fOrderSource, fServiceStatus, fCheckStatus, fAccountantStatus, fContractStatus, fAssigningObject } from '@/utils/filters'
+import { saveDataEditOrderList } from '@/utils/api'
 const FormItem = Form.Item
 const Option = Select.Option
 
@@ -26,11 +27,31 @@ class OrderInfo extends React.Component {
       okText: '保存',
       cancelText: '',
       onOk: () => {
+        const { orderList, orderItem } = this.props
+        orderList[index] = orderItem
+        this.props.dispatch({
+          type: 'update data edit order list',
+          payload: orderList
+        })
         modal.hide()
       },
       onCancel: () => {
         modal.hide()
       }
+    })
+  }
+  toDelete (index) {
+    const { orderList } = this.props
+    orderList.splice(index, 1)
+    this.props.dispatch({
+      type: 'update data edit order list',
+      payload: $.extend(true, [], orderList)
+    })
+  }
+  toSave () {
+    const { orderList } = this.props
+    saveDataEditOrderList({
+      Orders: orderList
     })
   }
   render () {
@@ -103,7 +124,7 @@ class OrderInfo extends React.Component {
                     <span>{fDate(item.ContractDate)}</span>
                   </Col>
                   <Col span={4}>
-                    <Icon className={styles['icon-size']} type="delete" />
+                    <Icon className={styles['icon-size']} type="delete" onClick={this.toDelete.bind(this, index)} />
                     <Icon className={styles['icon-size']} type="edit" onClick={e => this.editOrder(item, index)}/>
                   </Col>
                 </Row>
@@ -142,7 +163,7 @@ class OrderInfo extends React.Component {
           })
         }
         <div style={{ textAlign: 'center' }}>
-          <Button type="primary">保存</Button>
+          <Button type="primary" onClick={this.toSave.bind(this)}>保存</Button>
         </div>
       </div>
     )

@@ -66,3 +66,8 @@ export const fetchGetmainitemList = () => {
 export const fetchDataEditOrderList = (id) => {
   return http(`/api/orders/detailswithcontract/${id}`)
 }
+
+// 数据修改
+export const saveDataEditOrderList = (payload) => {
+  return http('/api/orders/detailswithcontract/save', 'POST', payload)
+}
