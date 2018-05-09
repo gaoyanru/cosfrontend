@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, List, Row, Col } from 'antd'
+import { Card, List, Row, Col, Button } from 'antd'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import styles from '@/stylus/serviceCard'
@@ -13,7 +13,11 @@ class Index extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      dataSource: []
+      dataSource: [],
+      pagination: {
+        current: 1,
+        pageSize: 30
+      }
     }
     this.goCustomerInfo = this.goCustomerInfo.bind(this)
     console.log(this.props, 'props')
@@ -27,6 +31,10 @@ class Index extends React.Component {
       connector: res[2],
       type: 1
     }
+    console.log(arguments, 'arguments')
+    const pagination = this.state.pagination
+    params.limit = pagination.pageSize
+    params.offset = (pagination.current - 1) * pagination.pageSize
     fetchCustomerServiceList(params).then(res => {
       if (res.status) {
         this.setState({
@@ -98,6 +106,9 @@ class Index extends React.Component {
             )}
           />
         </div>
+        {/* <div style={{ textAlign: 'center' }}>
+          <Button type="primary" onClick={this.onSearch}>加载跟更多</Button>
+        </div> */}
       </div>
 
     )
