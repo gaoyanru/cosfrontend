@@ -6,7 +6,10 @@ import { updateGetmainitemList, updateOrderList, updateOrderItem } from '@/actio
 class Demo1 extends React.Component {
   componentWillMount () {
     this.props.dispatch(updateGetmainitemList())
+<<<<<<< HEAD
+=======
     this.props.dispatch(updateOrderItem(289020))
+>>>>>>> 0664b7633ede821946407c5b29e64a5d1a9fa7f1
   }
   componentDidMount () {
     const modal = Modal.show({
@@ -35,6 +38,8 @@ class Demo1 extends React.Component {
     )
   }
 }
-export default connect((state) => {
-  return state
+export default connect(({dataedit}) => {
+  return {
+    ...dataedit
+  }
 })(Demo1)

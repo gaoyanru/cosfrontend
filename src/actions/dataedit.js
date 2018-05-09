@@ -4,7 +4,8 @@ import { fetchGetmainitemList, fetchDataEditOrderList } from '@/utils/api'
 export const updateGetmainitemList = () => (dispatch) => {
   fetchGetmainitemList().then((res) => {
     if (res.status) {
-      console.log(res)
+      console.log(res, 'fetchGetmainitemList')
+      dispatch(createAction('update data edit getmainitem list')(res.data))
     }
   })
 }

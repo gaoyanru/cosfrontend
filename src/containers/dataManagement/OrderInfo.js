@@ -4,9 +4,8 @@ import { connect } from 'react-redux'
 import styles from '@/stylus/modifydata'
 import Modal from '@/components/common/Modal'
 import ContractModify from '@/containers/dataManagement/ContractModify'
+import { updateGetmainitemList, updateOrderList, updateOrderItem } from '@/actions/dataedit'
 import { fDate, fOrderStatus, fOrderSource, fServiceStatus, fCheckStatus, fAccountantStatus, fContractStatus, fAssigningObject } from '@/utils/filters'
-import { updateGetmainitemList, updateOrderList } from '@/actions/dataedit'
-import { fetchSalesList } from '@/utils/api'
 const FormItem = Form.Item
 const Option = Select.Option
 
@@ -16,12 +15,10 @@ class OrderInfo extends React.Component {
     this.props.dispatch(updateOrderList(this.props.Id))
   }
   editOrder (item, index) {
-    console.log(item, 'item')
+    this.props.dispatch(updateOrderItem(item))
     const modal = Modal.show({
       content: (
-        <ContractModify
-          data ={item}
-        />
+        <ContractModify />
       ),
       title: '修改订单',
       mask: true,
@@ -132,7 +129,7 @@ class OrderInfo extends React.Component {
                   </Col>
                 </Row>
                 <Table
-                  rowKey={record => record.OrderItemId}
+                  rowKey={(record, tindex) => `order-info-tr-${tindex}`}
                   dataSource={
                     item.CrmOrderItems.length === 1 && item.CrmOrderItems[0] === null
                       ? [] : item.CrmOrderItems || []
