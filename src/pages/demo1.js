@@ -6,7 +6,6 @@ import { updateGetmainitemList, updateOrderList } from '@/actions/dataedit'
 class Demo1 extends React.Component {
   componentWillMount () {
     this.props.dispatch(updateGetmainitemList())
-    this.props.dispatch(updateOrderList(289020))
   }
   componentDidMount () {
     const modal = Modal.show({
@@ -35,6 +34,8 @@ class Demo1 extends React.Component {
     )
   }
 }
-export default connect((state) => {
-  return state
+export default connect(({dataedit}) => {
+  return {
+    ...dataedit
+  }
 })(Demo1)
