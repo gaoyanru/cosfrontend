@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import styles from '@/stylus/modifydata'
 import Modal from '@/components/common/Modal'
 import ContractModify from '@/containers/dataManagement/ContractModify'
-import { fDate, fOrderStatus, fOrderSource, fServiceStatus, fCheckStatus, fAccountantStatus, fContractStatus } from '@/utils/filters'
+import { fDate, fOrderStatus, fOrderSource, fServiceStatus, fCheckStatus, fAccountantStatus, fContractStatus, fAssigningObject } from '@/utils/filters'
 import { updateGetmainitemList, updateOrderList } from '@/actions/dataedit'
 import { fetchSalesList } from '@/utils/api'
 const FormItem = Form.Item
@@ -59,7 +59,7 @@ class OrderInfo extends React.Component {
       render: val => fDate(val)
     }, {
       title: '合同状态',
-      dataIndex: 'Status',
+      dataIndex: 'OrderStatus',
       render: (val, row) => fContractStatus(val)
     }, {
       title: '服务状态',
@@ -67,10 +67,11 @@ class OrderInfo extends React.Component {
       render: val => fServiceStatus(val)
     }, {
       title: '任务单号',
-      dataIndex: 'taskId'
+      dataIndex: 'TaskBillNo'
     }, {
       title: '分配对象',
-      dataIndex: 'person'
+      dataIndex: 'AssigningObject',
+      render: val => fAssigningObject(val)
     }, {
       title: '外勤状态',
       dataIndex: 'OutWorkerStatus',

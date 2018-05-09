@@ -273,3 +273,18 @@ export const fAccountantStatus = (status) => {
   }
   return str
 }
+export const fAssigningObject = (val) => {
+  var str = ''
+  switch (+val) {
+  case 1:
+    str = '外勤'
+    break
+  case 2:
+    str = '会计'
+    break
+  case 3:
+    str = '外勤会计'
+    break
+  }
+  return str
+}
