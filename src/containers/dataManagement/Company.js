@@ -303,10 +303,6 @@ class Company extends React.Component {
   }
   // 修改公司信息
   toggleEdit (flag) {
-    this.setState({
-      isEdit: flag,
-      isSpecial: false
-    })
     // flag为false，则为保存
     if (!flag) {
       this.props.form.validateFields(async (err, values) => {
@@ -330,8 +326,19 @@ class Company extends React.Component {
           data: params
         })
         if (status) {
+          // 初始化公司
           this.init()
+          // 设置编辑状态
+          this.setState({
+            isEdit: false,
+            isSpecial: false
+          })
         }
+      })
+    } else {
+      this.setState({
+        isEdit: true,
+        isSpecial: false
       })
     }
   }
@@ -590,7 +597,7 @@ class Company extends React.Component {
                   </Col>
                   <Col span={12}>
                     <label>
-                      营业护照：
+                      营业执照：
                     </label>
                     <span>
                       <img style={{width: 60, height: 'auto'}} src={companyInfo.BusinessLicense} alt="营业执照"/>
