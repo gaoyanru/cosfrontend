@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions'
-import { fetchGetmainitemList, fetchDataEditOrderItem } from '@/utils/api'
+import { fetchGetmainitemList, fetchDataEditOrderList } from '@/utils/api'
 
 export const updateGetmainitemList = () => (dispatch) => {
   fetchGetmainitemList().then((res) => {
@@ -9,10 +9,20 @@ export const updateGetmainitemList = () => (dispatch) => {
   })
 }
 
-export const updateOrderItem = (id) => (dispatch) => {
-  fetchDataEditOrderItem(id).then((res) => {
+export const updateOrderItem = (payload) => (dispatch) => {
+  dispatch(createAction('update data edit order item')(payload))
+}
+
+export const updateOrderList = (id) => (dispatch) => {
+  fetchDataEditOrderList(id).then((res) => {
     if (res.status) {
-      console.log(res)
+      let payload = []
+      try {
+        payload = res.data.Orders
+      } catch (e) {
+        console.log(e)
+      }
+      dispatch(createAction('update data edit order list')(payload))
     }
   })
 }
