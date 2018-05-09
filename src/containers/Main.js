@@ -20,7 +20,13 @@ class Main extends React.Component {
     this.handleMenuCollapse = this.handleMenuCollapse.bind(this)
   }
   componentWillMount () {
-    if (this.props.loginStat === 'out') {
+    let RealName = ''
+    try {
+      RealName = JSON.parse(sessionStorage.getItem('userInfo'))
+    } catch (e) {
+      console.log(e)
+    }
+    if (!RealName || this.props.loginStat === 'out') {
       this.props.history.push('/login')
     }
   }
@@ -41,8 +47,14 @@ class Main extends React.Component {
         <Menu.Item key="logout"><Icon type="logout" />退出登录</Menu.Item>
       </Menu>
     )
+    let RealName = ''
+    try {
+      RealName = JSON.parse(sessionStorage.getItem('userInfo'))
+    } catch (e) {
+      console.log(e)
+    }
     const currentUser = {
-      RealName: JSON.parse(sessionStorage.getItem('userInfo'))
+      RealName
     }
     let menuList = {
       menuParent: '数据管理',

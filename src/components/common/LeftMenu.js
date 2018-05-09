@@ -4,8 +4,13 @@ import { Link } from 'react-router-dom'
 const SubMenu = Menu.SubMenu
 export default class LeftMenu extends React.Component {
   render () {
-    console.log(sessionStorage.getItem('userInfo'), JSON.parse(sessionStorage.getItem('userInfo')) === 'kefu', 'info')
-    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
+    let userInfo = {}
+    try {
+      userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
+    } catch (e) {
+      console.log(e)
+    }
+
     return (
       <Menu theme="dark" mode="inline">
         {
