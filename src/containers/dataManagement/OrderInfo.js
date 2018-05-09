@@ -1,4 +1,4 @@
-import { Row, Col, Icon, Table, Form, Select } from 'antd'
+import { Row, Col, Icon, Table, Form, Select, Button } from 'antd'
 import React from 'react'
 import { connect } from 'react-redux'
 import styles from '@/stylus/modifydata'
@@ -6,25 +6,14 @@ import Modal from '@/components/common/Modal'
 import ContractModify from '@/containers/dataManagement/ContractModify'
 import { fDate, fOrderStatus, fOrderSource, fServiceStatus, fCheckStatus, fAccountantStatus, fContractStatus } from '@/utils/filters'
 import { updateGetmainitemList, updateOrderList } from '@/actions/dataedit'
+import { fetchSalesList } from '@/utils/api'
 const FormItem = Form.Item
 const Option = Select.Option
 
 class OrderInfo extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      salerList: [{
-        Id: 196,
-        RealName: '于洋'
-      }, {
-        Id: 197,
-        RealName: 'da洋'
-      }]
-    }
-  }
   componentWillMount () {
     this.props.dispatch(updateGetmainitemList())
-    this.props.dispatch(updateOrderList(289020))
+    this.props.dispatch(updateOrderList(this.props.Id))
   }
   editOrder (item, index) {
     console.log(item, 'item')
@@ -97,7 +86,7 @@ class OrderInfo extends React.Component {
         {
           orderList.map((item, index) => {
             return (
-              <div key={item.OrderId}>
+              <div key={item.OrderId} style={{ marginBottom: '30px' }}>
                 <Row>
                   <Col span={5}>
                     <label>订单号：</label>
@@ -109,11 +98,7 @@ class OrderInfo extends React.Component {
                   </Col>
                   <Col span={5}>
                     <label>签单销售：</label>
-                    <Select defaultValue={item.OrderSalesId} style={{ width: 150 }}>
-                      {this.state.salerList.map(item => {
-                        return <Option key={item.Id} value={item.Id}>{item.RealName}</Option>
-                      })}
-                    </Select>
+                    <span>{item.OrderSalesName}</span>
                   </Col>
                   <Col span={5}>
                     <label>签单日期：</label>
@@ -158,6 +143,9 @@ class OrderInfo extends React.Component {
             )
           })
         }
+        <div style={{ textAlign: 'center' }}>
+          <Button type="primary">保存</Button>
+        </div>
       </div>
     )
   }

@@ -13,8 +13,7 @@ class ModifyData extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      companyItem: {},
-      salerList: null
+      companyItem: {}
     }
     this.back = this.back.bind(this)
     this.callback = this.callback.bind(this)
@@ -50,7 +49,7 @@ class ModifyData extends React.Component {
           <Tabs defaultActiveKey="1" onChange={this.callback}>
             <TabPane className={styles['basic-info']} tab="订单信息" key="1">
               <OrderInfo
-                salerList={this.state.salerList}
+                Id={this.state.companyItem.Id}
               />
             </TabPane>
             <TabPane className={styles['basic-info']} tab="外勤任务" key="2">
