@@ -6,7 +6,7 @@ import { updateGetmainitemList, updateOrderItem } from '@/actions/dataedit'
 class Demo1 extends React.Component {
   componentWillMount () {
     this.props.dispatch(updateGetmainitemList())
-    this.props.dispatch(updateOrderItem(101553008))
+    this.props.dispatch(updateOrderItem(289020))
   }
   componentDidMount () {
     const modal = Modal.show({
