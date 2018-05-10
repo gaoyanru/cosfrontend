@@ -15,29 +15,33 @@ class Index extends React.Component {
     this.pageSize = 30
     this.state = {
       dataSource: [],
-      pagination: 1
+      pagination: 1,
+      searchParams: [],
+      showMore: true
     }
     this.goCustomerInfo = this.goCustomerInfo.bind(this)
     console.log(this.props, 'props')
     // this.props.dispatch(fetchListAction())
   }
-  onSearch (res, refresh) {
-    console.log(res)
+  onSearch (refresh, res) {
+    res = res || this.state.searchParams
     let params = {
       companyname: res[0],
       phone: res[1],
       connector: res[2],
       type: 1
     }
-    console.log(this, 'this')
     const pagination = refresh ? 1 : this.state.pagination
     params.limit = this.pageSize
     params.offset = (pagination - 1) * this.pageSize
-    fetchCustomerServiceList(params).then(res => {
-      if (res.status) {
+    fetchCustomerServiceList(params).then(res2 => {
+      if (res2.status) {
+        const data = res2.data
         this.setState({
-          dataSource: refresh ? res.data : this.state.dataSource.concat(res.data),
-          pagination: pagination + 1
+          searchParams: res,
+          dataSource: refresh ? data : this.state.dataSource.concat(data),
+          pagination: data.length < this.pageSize ? pagination : pagination + 1,
+          showMore: data.length === this.pageSize
         })
       }
     })
@@ -106,9 +110,9 @@ class Index extends React.Component {
           />
         </div>
         {
-          this.state.dataSource.length >= 30 &&
+          this.state.showMore &&
           <div style={{ textAlign: 'center' }}>
-            <Button type="primary" onClick={this.onSearch.bind(this)}>加载跟更多</Button>
+            <Button type="primary" onClick={this.onSearch.bind(this, false, undefined)}>加载跟更多</Button>
           </div>
         }
       </div>
