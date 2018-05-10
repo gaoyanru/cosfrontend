@@ -92,7 +92,9 @@ class OrderInfo extends React.Component {
   toSave () {
     const { orderList } = this.props
     saveDataEditOrderList({
-      Orders: orderList
+      Orders: orderList,
+      CustomerId: this.props.Id,
+      TypeExchange: 0
     })
   }
   handleChange (field, index, value) {
