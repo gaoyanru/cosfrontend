@@ -46,18 +46,33 @@ class OrderInfo extends React.Component {
     })
   }
   toValidOrderItem () {
-    const { CrmOrderItems } = this.props.orderItem
+    const { CrmOrderItems, PayInfoList } = this.props.orderItem
+    console.log(PayInfoList, 'PayInfoList')
     const obj = {
       ContractNo: '合同编号',
       MainItemName: '主项目',
       ChildItemName: '子项目',
       Amount: '费用'
     }
+    const payobj = {
+      PayAccountNo: '支付账号',
+      PayTime: '支付时间'
+    }
     for (const item of CrmOrderItems) {
       for (const field in obj) {
         if (!item[field]) {
           notification.warning({
             message: `${obj[field]}不能为空`
+          })
+          return false
+        }
+      }
+    }
+    for (const item of PayInfoList) {
+      for (const field in payobj) {
+        if (!item[field]) {
+          notification.warning({
+            message: `${payobj[field]}不能为空`
           })
           return false
         }

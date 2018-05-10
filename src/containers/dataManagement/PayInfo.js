@@ -91,8 +91,8 @@ class Main extends React.Component {
   onDelete (index) {
     const { orderItem } = this.state
     const { PayInfoList, OrderSourceId } = orderItem
-    // PayInfoList.splice(index, 1)
-    PayInfoList[index]['Status'] = 0
+    PayInfoList.splice(index, 1)
+    // PayInfoList[index]['Status'] = 0
     orderItem.PayInfoList = PayInfoList
     dispatch(updateOrderItem(orderItem))
   }

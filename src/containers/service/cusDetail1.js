@@ -31,7 +31,7 @@ export default class CusDetail1 extends React.Component {
               </Col>
               <Col span={8}>
                 <label>销售负责人：</label>
-                <span>{item.SalesId}</span>
+                <span>{item.SalesName}</span>
               </Col>
             </Row>
             <Row className={styles['mt25']}>

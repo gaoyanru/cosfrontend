@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from '@/stylus/modifydata'
+import { notification } from 'pilipa'
 import _ from 'lodash'
 import moment from 'moment'
 import Modal from '@/components/common/Modal'
@@ -174,7 +175,9 @@ class Main extends React.Component {
       contractItem.GiftMonths = Number(contractItem.GiftMonths) || 0
       const months = contractItem.OrderMonths + contractItem.GiftMonths
       if (!months) {
-        message.error('请先设置服务期限')
+        notification.warning({
+          message: '请先设置服务期限'
+        })
         return
       }
       contractItem.ServiceEnd = moment(contractItem.ServiceStart).add(months - 1, 'months').endOf('month').format('YYYY-MM-DD')
@@ -216,7 +219,8 @@ class Main extends React.Component {
       contractInfo[index].push({
         MainItemId,
         ContractNo: contractInfo[index][0].ContractNo || '',
-        MainItemName: mainItemList[MainItemId - 1]
+        MainItemName: mainItemList[MainItemId - 1],
+        OrderId: contractInfo[index][0].OrderId
       })
     } else {
       contractInfo[index].splice(index2, 1)
@@ -305,6 +309,7 @@ class Main extends React.Component {
                       服务时间：
                       <DatePicker
                         size="small"
+                        allowClear={false}
                         defaultValue={moment(contractInfo[0][0].ServiceStart, 'YYYY-MM-DD')}
                         onChange={this.handleChange.bind(this, 'ServiceStart', 0, 0)}
                       />
@@ -345,6 +350,7 @@ class Main extends React.Component {
                       <label className="ant-form-item-required">签订日期：</label>
                       <DatePicker
                         size="small"
+                        allowClear={false}
                         defaultValue={moment(orderItem.ContractDate, 'YYYY-MM-DD')}
                         onChange={this.handleChange2.bind(this, 'ContractDate')}
                       />
