@@ -55,7 +55,7 @@ class CustomerService extends React.Component {
     fetchCustomerServiceList(params).then(res => {
       if (res.status) {
         this.setState({
-          dataSource: res.data
+          dataSource: this.state.dataSource.concat(res.data)
         })
       }
     })
