@@ -17,7 +17,7 @@ class Index extends React.Component {
       dataSource: [],
       pagination: 1,
       searchParams: [],
-      showMore: true
+      showMore: false
     }
     this.goCustomerInfo = this.goCustomerInfo.bind(this)
     console.log(this.props, 'props')

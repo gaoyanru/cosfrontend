@@ -548,28 +548,33 @@ class Company extends React.Component {
               isEdit ? <div className={styles['company-detail']}>
                 <Row >
                   <Col span={12}>
-                    <label>公司名称：</label>
-                    <Select
-                      mode="combobox"
-                      style={{width: 180}}
-                      value={companyInfo.CompanyName}
-                      defaultActiveFirstOption={false}
-                      showArrow={false}
-                      filterOption={false}
-                      onSearch={this.searchCompanyChange}
-                      onSelect={this.getCompanyDetail}
-                    >
+                    <FormItem label="公司名称" className={styles['company-col-item']}>
+                      {getFieldDecorator('CompanyName', {
+                        initialValue: companyInfo.CompanyName
+                      })(
+                        <Select
+                          mode="combobox"
+                          style={{width: 180}}
+                          value={companyInfo.CompanyName}
+                          defaultActiveFirstOption={false}
+                          showArrow={false}
+                          filterOption={false}
+                          onSearch={this.searchCompanyChange}
+                          onSelect={this.getCompanyDetail}
+                        >
+                          {
+                            companyList.map(item => <Option key={item.id} value={item.name}>{item.name}</Option>)
+                          }
+                        </Select>
+                      )}
                       {
-                        companyList.map(item => <Option key={item.id} value={item.name}>{item.name}</Option>)
+                        isSpecial ? null : <ButtonGroup>
+                          <Button type="primary" onClick={this.searchCompany}>查 询</Button>
+                          <Button type="primary" onClick={this.toggleModal}>网 址</Button>
+                          <Button type="primary" onClick={this.toggleSpecial}>特殊公司</Button>
+                        </ButtonGroup>
                       }
-                    </Select>
-                    {
-                      isSpecial ? null : <ButtonGroup>
-                        <Button type="primary" onClick={this.searchCompany}>查 询</Button>
-                        <Button type="primary" onClick={this.toggleModal}>网 址</Button>
-                        <Button type="primary" onClick={this.toggleSpecial}>特殊公司</Button>
-                      </ButtonGroup>
-                    }
+                    </FormItem>
                   </Col>
                   <Col span={6}>
                     <FormItem label="法人姓名" className={styles['company-col-item']}>
