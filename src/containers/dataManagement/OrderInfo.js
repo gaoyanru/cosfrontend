@@ -65,9 +65,10 @@ class OrderInfo extends React.Component {
     }
     return true
   }
-  toDelete (index) {
+  toDelete (field, index) {
     const { orderList } = this.props
-    orderList.splice(index, 1)
+    orderList[index][field] = 0
+    // orderList.splice(index, 1)
     this.props.dispatch({
       type: 'update data edit order list',
       payload: $.extend(true, [], orderList)
@@ -77,6 +78,14 @@ class OrderInfo extends React.Component {
     const { orderList } = this.props
     saveDataEditOrderList({
       Orders: orderList
+    })
+  }
+  handleChange (field, index, value) {
+    const { orderList } = this.props
+    orderList[index][field] = value
+    this.props.dispatch({
+      type: 'update data edit order list',
+      payload: $.extend(true, [], orderList)
     })
   }
   render () {
@@ -130,7 +139,8 @@ class OrderInfo extends React.Component {
         {
           orderList.map((item, index) => {
             return (
-              <div key={item.OrderId} style={{ marginBottom: '50px' }}>
+              item.Status !== 0 &&
+              (<div key={item.OrderId} style={{ marginBottom: '50px' }}>
                 <Row>
                   <Col span={5}>
                     <label>订单号：</label>
@@ -149,7 +159,7 @@ class OrderInfo extends React.Component {
                     <span>{fDate(item.ContractDate)}</span>
                   </Col>
                   <Col span={4}>
-                    <Icon className={styles['icon-size']} type="delete" onClick={this.toDelete.bind(this, index)} />
+                    <Icon className={styles['icon-size']} type="delete" onClick={this.toDelete.bind(this, 'Status', index)} />
                     <Icon className={styles['icon-size']} type="edit" onClick={e => this.editOrder(item, index)}/>
                   </Col>
                 </Row>
@@ -164,7 +174,7 @@ class OrderInfo extends React.Component {
                   </Col>
                   <Col span={5}>
                     <label>订单状态：</label>
-                    <Select defaultValue={'' + item.OrderStatus} style={{ width: 150 }}>
+                    <Select defaultValue={'' + item.OrderStatus} style={{ width: 150 }} onChange={this.handleChange.bind(this, 'OrderStatus', index)}>
                       <Option key='1' value='1'>审单待审核</Option>
                       <Option key='2' value='2'>审单已审核</Option>
                       <Option key='3' value='3'>审单驳回</Option>
@@ -183,7 +193,7 @@ class OrderInfo extends React.Component {
                   columns={columns}
                   pagination={false}
                 />
-              </div>
+              </div>)
             )
           })
         }
