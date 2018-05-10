@@ -44,15 +44,6 @@ class Main extends React.Component {
         <Menu.Item key="logout"><Icon type="logout" />退出登录</Menu.Item>
       </Menu>
     )
-    let RealName = ''
-    try {
-      RealName = JSON.parse(sessionStorage.getItem('userInfo'))
-    } catch (e) {
-      console.log(e)
-    }
-    const currentUser = {
-      RealName
-    }
     let menuList = {
       menuParent: '数据管理',
       children: '数据修改',

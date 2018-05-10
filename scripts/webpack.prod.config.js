@@ -51,7 +51,7 @@ var plugins = [
   new webpack.ProvidePlugin({$: 'jquery', jQuery: 'jquery', 'window.jQuery': 'jquery'}),
   // Explicit vendor chunk
   new webpack.optimize.CommonsChunkPlugin({
-    names: ['common', 'echarts', 'vendor'],
+    names: ['vendor'],
     minChunks: function (module) {
       return module.context && module.context.includes('node_modules')
       // return module.context && module.context.includes('node_modules') && /(rc-(\w)*|immutable|echarts|zrender|jquery|moment|antd)/.test(module.context) === false
@@ -67,8 +67,7 @@ var plugins = [
       warnings: false,
       drop_console: true,
       drop_debugger: true
-    },
-    sourceMap: true
+    }
   }),
   new webpack.NoEmitOnErrorsPlugin(),
   extractCommon,
@@ -76,21 +75,13 @@ var plugins = [
   new Visualizer(),
   new webpackUploadPlugin({
     path: path.resolve(__dirname, '../deploy/dist'),
-    aliOSS: {
-        region: process.env.REGION,
-        accessKeyId: process.env.ACCESS_KEY_ID,
-        accessKeySecret: process.env.ACCESS_KEY_SECRET,
-        bucket: process.env.BUCKET,
-        fileDir: process.env.FILE_DIR
-    }
+    aliOSS
   })
 ]
 
 module.exports = {
   entry: {
-    app: [path.resolve(__dirname, '../src/app')],
-    echarts: 'echarts',
-    common: ['antd', 'jquery']
+    app: [path.resolve(__dirname, '../src/app')]
   },
   output: {
     path: path.resolve(__dirname, '../deploy/dist'),
@@ -119,7 +110,7 @@ module.exports = {
         test: /\.css$/,
         use: extractCommon.extract({
           fallback: 'style-loader', // 应用于当 CSS 没有被提取(也就是一个额外的 chunk，当 allChunks: false)
-          use: ['css-loader?sourceMap=true', 'postcss-loader']
+          use: ['css-loader', 'postcss-loader']
         })
       }, {
         test: /\.styl$/,
@@ -131,19 +122,12 @@ module.exports = {
               loader: 'css-loader',
               options: {
                 modules: true,
-                localIdentName: '[local]-[hash:base64:5]',
-                sourceMap: true
+                localIdentName: '[local]-[hash:base64:5]'
               }
             }, {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: true
-              }
+              loader: 'postcss-loader'
             }, {
-              loader: 'stylus-loader',
-              options: {
-                sourceMap: true
-              }
+              loader: 'stylus-loader'
             }
           ]
         })
@@ -190,6 +174,5 @@ module.exports = {
     alias: {
       '@': path.join(__dirname, '../src/')
     }
-  },
-  devtool: 'source-map'
+  }
 }
