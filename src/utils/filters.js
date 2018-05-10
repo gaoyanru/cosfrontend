@@ -144,7 +144,7 @@ export const fAgentStatus = (status) => {
   var str = ''
   switch (+status) {
   case 1:
-    str = '为开始'
+    str = '未开始'
     break
   case 2:
     str = '挂起'

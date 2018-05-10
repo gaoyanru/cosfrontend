@@ -86,7 +86,7 @@ export default class AgentService extends React.Component {
           </Col>
           <Col span={4}>
             <label>服务期限：</label>
-            <span>{data.timespan}</span>
+            <span>{data.timespan || 0}</span>
             <span>个月</span>
           </Col>
           <Col span={4}>
