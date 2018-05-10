@@ -21,14 +21,13 @@
     "react-redux",
     "typescript",
     "antd-design",
-    "pm2",
     "yarn"
   ],
   "repository": {
     "type": "git",
     "url": "git@git.i-counting.cn:Agent/agent_react.git"
   },
-  "author": "fangbao",
+  "author": "i-counting",
   "license": "ISC",
   "browserslist": [
     "> 1%",
@@ -46,7 +45,6 @@
     "imageviewer": "^0.6.0",
     "jquery": "^3.2.1",
     "js-cookie": "^2.1.4",
-    "moment": "^2.22.1",
     "pilipa": "1.0.23",
     "prop-types": "^15.6.1",
     "react": "^16.0.0",
@@ -58,8 +56,7 @@
     "redux-actions": "^2.2.1",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
-    "title-notify": "^1.0.13",
-    "moment": "^2.19.2"
+    "title-notify": "^1.0.13"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.3",
