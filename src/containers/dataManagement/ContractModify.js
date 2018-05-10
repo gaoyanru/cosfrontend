@@ -12,7 +12,9 @@ class Main extends React.Component {
     return (
       <div>
         <ContractInfo />
-        <PayInfo />
+        <div style={{marginTop: '20px'}}>
+          <PayInfo />
+        </div>
       </div>
     )
   }

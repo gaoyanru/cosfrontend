@@ -1,5 +1,6 @@
 import { handleActions } from 'redux-actions'
 import storage from '../utils/storage'
+
 export default handleActions({
   'loading show': (state) => {
     return {
@@ -18,8 +19,15 @@ export default handleActions({
       ...state,
       loginStat: payload.loginStat // in or out
     }
+  },
+  'update common user info': (state, { payload }) => {
+    return {
+      ...state,
+      userInfo: payload
+    }
   }
 }, {
   ajaxCount: 0,
-  loginStat: sessionStorage.getItem('token') ? 'in' : 'out'
+  loginStat: sessionStorage.getItem('token') ? 'in' : 'out',
+  userInfo: ''
 })

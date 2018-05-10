@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from '@/stylus/main'
 import { Menu, Icon, Dropdown, Avatar } from 'antd'
+import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { Link, Redirect } from 'react-router-dom'
 import { logout } from '@/utils/api'
@@ -15,18 +16,9 @@ class GlobalHeader extends React.Component {
     onCollapse(!collapsed)
   }
   onMenuClick ({ key }) {
-    console.log(key)
-    sessionStorage.removeItem('token')
     if (key === 'logout') {
-      this.props.history.push('/login')
+      this.props.history.push('/logout')
     }
-    // logout().then((res) => {
-    //   if (res.status) {
-    //     return (
-    //       this.props.history.push('/login')
-    //     )
-    //   }
-    // })
   }
   render () {
     const {
@@ -55,17 +47,19 @@ class GlobalHeader extends React.Component {
         <div className={styles.right}>
           {/* <span className={`${styles.action} ${styles.top}`}><Icon type="search" /></span>
           <span className={`${styles.action} ${styles.top}`}><Icon type="bell" /></span> */}
-          {currentUser.RealName && (
-            <Dropdown overlay={menu}>
-              <span className={styles.action}>
-                <Avatar size="small" className={styles.avatar} icon="user"/>
-                {currentUser.RealName}
-              </span>
-            </Dropdown>
-          )}
+          <Dropdown overlay={menu}>
+            <span className={styles.action}>
+              <Avatar size="small" className={styles.avatar} icon="user"/>
+              {this.props.userInfo}
+            </span>
+          </Dropdown>
         </div>
       </div>
     )
   }
 }
-export default withRouter(GlobalHeader)
+export default connect(({common}) => {
+  return {
+    ...common
+  }
+})(withRouter(GlobalHeader))

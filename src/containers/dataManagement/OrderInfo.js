@@ -1,4 +1,5 @@
 import { Row, Col, Icon, Table, Form, Select, Button } from 'antd'
+import { notification } from 'pilipa'
 import React from 'react'
 import { connect } from 'react-redux'
 import styles from '@/stylus/modifydata'
@@ -16,6 +17,7 @@ class OrderInfo extends React.Component {
     this.props.dispatch(updateOrderList(this.props.Id))
   }
   editOrder (item, index) {
+    item = $.extend(true, {}, item)
     this.props.dispatch(updateOrderItem(item))
     const modal = Modal.show({
       content: (
@@ -28,10 +30,13 @@ class OrderInfo extends React.Component {
       cancelText: '',
       onOk: () => {
         const { orderList, orderItem } = this.props
+        if (!this.toValidOrderItem()) {
+          return
+        }
         orderList[index] = orderItem
         this.props.dispatch({
           type: 'update data edit order list',
-          payload: orderList
+          payload: $.extend(true, [], orderList)
         })
         modal.hide()
       },
@@ -39,6 +44,26 @@ class OrderInfo extends React.Component {
         modal.hide()
       }
     })
+  }
+  toValidOrderItem () {
+    const { CrmOrderItems } = this.props.orderItem
+    const obj = {
+      ContractNo: '合同编号',
+      MainItemName: '主项目',
+      ChildItemName: '子项目',
+      Amount: '费用'
+    }
+    for (const item of CrmOrderItems) {
+      for (const field in obj) {
+        if (!item[field]) {
+          notification.warning({
+            message: `${obj[field]}不能为空`
+          })
+          return false
+        }
+      }
+    }
+    return true
   }
   toDelete (index) {
     const { orderList } = this.props

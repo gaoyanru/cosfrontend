@@ -28,6 +28,12 @@ $(document).ajaxError((event, response, settings) => {
   let responseJSON = response.responseJSON
   switch (response.statusText) {
   case 'Unauthorized':
+    store.dispatch({
+      type: 'change login status',
+      payload: {
+        loginStat: 'out'
+      }
+    })
     break
   case 'timeout':
     msgConf = {

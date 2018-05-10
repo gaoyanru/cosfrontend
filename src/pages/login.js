@@ -18,7 +18,6 @@ class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleSubmit (e) {
-    console.log('aa')
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -32,11 +31,7 @@ class Login extends React.Component {
               loading: true,
               isLogin: true
             })
-            if (loginRes.data.username === 'kefu') {
-              this.props.history.push('/customer')
-            } else if (loginRes.data.username === 'dm') {
-              this.props.history.push('/datamanagement')
-            }
+            this.props.history.push('/')
           } else {
             this.setState({
               loading: false,

@@ -8,6 +8,7 @@ import ClassNames from 'classnames'
 import PageHeader from '@/components/common/PageHeader'
 import GlobalHeader from '@/components/common/GlobalHeader'
 import LeftMenu from '@/components/common/LeftMenu'
+import { fetcUserInfoAction } from '@/actions/common'
 const { Header, Sider, Content } = Layout
 
 class Main extends React.Component {
@@ -20,15 +21,11 @@ class Main extends React.Component {
     this.handleMenuCollapse = this.handleMenuCollapse.bind(this)
   }
   componentWillMount () {
-    let RealName = ''
-    try {
-      RealName = JSON.parse(sessionStorage.getItem('userInfo'))
-    } catch (e) {
-      console.log(e)
-    }
-    if (!RealName || this.props.loginStat === 'out') {
-      this.props.history.push('/login')
-    }
+    this.props.dispatch(fetcUserInfoAction((userInfo) => {
+      if (!userInfo) {
+        this.props.history.push('/login')
+      }
+    }))
   }
   componentWillReceiveProps (props) {
     if (props.loginStat === 'out') {
@@ -76,9 +73,8 @@ class Main extends React.Component {
       menuList.children = '客户'
       menuList.child = '详情'
     }
-    console.log(this.props.location.pathname, this.props.location.pathname === '/customerDetail', 'props')
     if (this.props.loginStat === 'out') {
-      return <div>no auth</div>
+      return null
     }
     return (
       <Layout>
@@ -98,7 +94,6 @@ class Main extends React.Component {
         <Layout>
           <Header style={{ background: '#fff', padding: 0 }}>
             <GlobalHeader
-              currentUser={currentUser}
               collapsed={this.state.collapsed}
               onCollapse={this.handleMenuCollapse}
             />
@@ -113,5 +108,7 @@ class Main extends React.Component {
   }
 }
 export default connect((state) => {
-  return state.common
+  return {
+    ...state.common
+  }
 })(withRouter(Main))
