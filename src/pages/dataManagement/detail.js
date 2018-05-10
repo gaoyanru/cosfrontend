@@ -49,7 +49,7 @@ class ModifyData extends React.Component {
           </Button>
         </div>
         <div style={{ margin: '40px 24px 0 30px' }}>
-          <AgentData/>
+          <AgentData companyId={this.state.companyItem.Id}/>
         </div>
         <div style={{ margin: '0px 24px 0' }}>
           <Company companyId={this.state.companyItem.Id} setCompanyName={this.setCompanyName} />
