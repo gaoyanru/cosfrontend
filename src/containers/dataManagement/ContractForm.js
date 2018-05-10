@@ -173,7 +173,11 @@ class Main extends React.Component {
       contractItem.OrderMonths = Number(contractItem.OrderMonths) || 0
       contractItem.GiftMonths = Number(contractItem.GiftMonths) || 0
       const months = contractItem.OrderMonths + contractItem.GiftMonths
-      contractItem.ServiceEnd = moment(contractItem.ServiceStart).add(months, 'M').format('YYYY-MM-DD')
+      if (!months) {
+        message.error('请先设置服务期限')
+        return
+      }
+      contractItem.ServiceEnd = moment(contractItem.ServiceStart).add(months - 1, 'months').endOf('month').format('YYYY-MM-DD')
       console.log(months, contractItem.ServiceEnd, 'end')
     }
     contractItem.MainItemName = mainItemList[contractItem.MainItemId - 1].Name
