@@ -1,13 +1,14 @@
+import { Row, Col, Button, DatePicker, Select, message, Input } from 'antd'
 import React from 'react'
-import styles from '@/stylus/modifydata'
 import _ from 'lodash'
 import moment from 'moment'
 import Rif from '@/components/RIF'
 // import UploadFile from '@/containers/dataManagement/UploadFile'
 import PayTypeSelect from '@/containers/dataManagement/PayTypeSelect'
-import { Row, Col, Button, DatePicker, Select, message, Input } from 'antd'
+import FileUploader from '@/components/common/FileUploader'
 import stores from '@/stores'
 import { updateOrderItem } from '@/actions/dataedit'
+import styles from '@/stylus/modifydata'
 const { dispatch } = stores
 class PayInfo extends React.Component {
   constructor (props) {
@@ -19,6 +20,9 @@ class PayInfo extends React.Component {
     this.setState(obj, () => {
       this.props.onChange(this.state)
     })
+  }
+  fileUploaded (path) {
+    this.setStateChange({ PayImagePath: path[0] })
   }
   render () {
     return (
@@ -42,13 +46,12 @@ class PayInfo extends React.Component {
         <Rif key="pay4" if={(+this.state.PayTypeId) < 5}>
           <span>
             <label className="ant-form-item-required">凭证：</label>
-            <img src={this.state.PayImagePath + '?x-oss-process=image/resize,m_lfit,h_35,w_50'}/>
-            {/* <UploadFile value={this.state.PayImagePath} additional="?x-oss-process=image/resize,m_lfit,h_35,w_50" onChange={v => { this.setStateChange({ PayImagePath: v }) }} /> */}
+            <FileUploader path={this.state.PayImagePath} uploaded={this.fileUploaded.bind(this)} />
           </span>
         </Rif>
         <Rif key="pay5" if={(+this.state.PayTypeId) < 6}>
           <span>
-            <Button size="small" onClick={this.props.onAdd}>添加</Button>
+            <Button size="small" style={{margin: '4px'}} onClick={this.props.onAdd}>添加</Button>
             <Button size="small" onClick={this.props.onDelete}>删除</Button>
           </span>
         </Rif>
