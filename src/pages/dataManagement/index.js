@@ -31,7 +31,7 @@ class Index extends React.Component {
       connector: res[2],
       type: 1
     }
-    console.log(arguments, 'arguments')
+    console.log(this, 'this')
     const pagination = this.state.pagination
     params.limit = pagination.pageSize
     params.offset = (pagination.current - 1) * pagination.pageSize
@@ -106,11 +106,13 @@ class Index extends React.Component {
             )}
           />
         </div>
-        {/* <div style={{ textAlign: 'center' }}>
-          <Button type="primary" onClick={this.onSearch}>加载跟更多</Button>
-        </div> */}
+        {
+          this.state.dataSource.length >= 30 &&
+          <div style={{ textAlign: 'center' }}>
+            <Button type="primary" onClick={this.onSearch.bind(this)}>加载跟更多</Button>
+          </div>
+        }
       </div>
-
     )
   }
 }
