@@ -22,7 +22,7 @@ class Index extends React.Component {
     // this.props.dispatch(fetchListAction())
   }
   onSearch (res, refresh) {
-    console.log(res)
+    console.log(res, 'res')
     let params = {
       companyname: res[0],
       phone: res[1],

@@ -13,18 +13,16 @@ import { fOrganization } from '@/utils/filters'
 class CustomerService extends React.Component {
   constructor (props) {
     super(props)
+    this.pageSize = 30
     this.state = {
       dataSource: [],
-      pagination: {
-        current: 1,
-        pageSize: 30
-      }
+      pagination: 1
     }
     this.goCustomerInfo = this.goCustomerInfo.bind(this)
     console.log(this.props, 'props')
     // this.props.dispatch(fetchListAction())
   }
-  onSearch (res) {
+  onSearch (res, refresh) {
     console.log(res, 'res')
     let params = {
       companyname: res[0],
@@ -32,30 +30,14 @@ class CustomerService extends React.Component {
       connector: res[2]
     }
     console.log(params, 'params')
-    const pagination = this.state.pagination
-    if (params.companyname !== res.companyname || params.phone !== res.phone || params.connector !== res.phone) {
-      this.setState({
-        pagination: {
-          current: 1,
-          pageSize: 30
-        }
-      })
-    } else {
-      this.setState({
-        pagination: {
-          current: 0,
-          pageSize: 30
-        }
-      }, () => {
-        pagination.current += 1
-      })
-    }
-    params.limit = pagination.pageSize
-    params.offset = (pagination.current - 1) * pagination.pageSize
+    const pagination = refresh ? 1 : this.state.pagination
+    params.limit = this.pageSize
+    params.offset = (pagination - 1) * this.pageSize
     fetchCustomerServiceList(params).then(res => {
       if (res.status) {
         this.setState({
-          dataSource: this.state.dataSource.concat(res.data)
+          dataSource: refresh ? res.data : this.state.dataSource.concat(res.data),
+          pagination: pagination + 1
         })
       }
     })
@@ -79,7 +61,7 @@ class CustomerService extends React.Component {
         <div className={styles.searchList}>
           <Search
             paramKeys={[1, 2, 3]}
-            onSearch={this.onSearch.bind(this)}
+            onSearch={this.onSearch.bind(this, true)}
             isAddUser={false}
           />
         </div>
