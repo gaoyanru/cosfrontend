@@ -68,11 +68,11 @@ class OrderInfo extends React.Component {
         }
       }
     }
-    for (const item of PayInfoList) {
-      for (const field in payobj) {
-        if (!item[field]) {
+    for (const item2 of PayInfoList) {
+      for (const field2 in payobj) {
+        if (!item2[field2] && [5, 6].indexOf(item2.PayTypeId) === -1) {
           notification.warning({
-            message: `${payobj[field]}不能为空`
+            message: `${payobj[field2]}不能为空`
           })
           return false
         }

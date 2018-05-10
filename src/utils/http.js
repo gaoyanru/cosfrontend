@@ -92,15 +92,17 @@ const http = (url, type, config = {}) => {
     Authorize: 'Bearer ' + sessionStorage.getItem('token')
   })
   const headers = config.headers || undefined
+  const contentType = config.contentType !== undefined ? config.contentType : 'application/json; charset=utf-8'
   delete config.extension
   delete config.headers
+  delete config.contentType
   const data = config.data || config || {}
   console.log(data, 'data')
   let ajaxConfig = {
     url: url,
     method: type,
     headers: headers,
-    contentType: config.contentType || 'application/json; charset=utf-8',
+    contentType,
     data: data,
     timeout: 10000
   }
