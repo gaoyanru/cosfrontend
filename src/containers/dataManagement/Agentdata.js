@@ -52,7 +52,7 @@ export default class AgentData extends React.Component {
       <div>
         <Row className={styles['mt10']}>
           <Col span={4}>
-            <label>序列ID：</label>
+            <label>客户ID：</label>
             <span>{customerId}</span>
           </Col>
           <Col span={4}>
