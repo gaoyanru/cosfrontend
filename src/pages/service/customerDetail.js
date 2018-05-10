@@ -1,5 +1,6 @@
 import React from 'react'
 import { Tabs, Table, Button, message } from 'antd'
+import { notification } from 'pilipa'
 import { fDate, fMainTaskStatus, fSubTaskStatus, fOutworkStatus, fContractStatus } from '@/utils/filters'
 import styles from '@/stylus/serviceCard'
 import CusDetail1 from '@/containers/service/cusDetail1'
@@ -75,7 +76,9 @@ export default class CustomerDetail extends React.Component {
       })
     } else if (key === '5') {
       if (this.state.item && !this.state.item.ServiceCompanyCode) {
-        message.error('基础库统一编码为空')
+        notification.warning({
+          message: '基础库统一编码为空'
+        })
         return false
       }
       fetchAgentDetail(this.state.item.ServiceCompanyCode).then(res => {
