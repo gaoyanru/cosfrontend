@@ -109,7 +109,7 @@ class Company extends React.Component {
     const url = `/api/customer/${companyId}`
     const { status, data } = await http(url)
     if (status) {
-      let { SubsidiaryId, Connector, Mobile, Telephone, AreaCode, SalesId, AddedValue, LegalPerson, CompanyName, RegNO, RegCode, RegisteredCapital, BusinessLicense, RegisterDate, BusnissDeadline, NoDeadLine, Address, BusinessScope, InfoSource = 0 } = data
+      let { SubsidiaryId, Connector, Mobile, Telephone, AreaCode, SalesId, AddedValue, LegalPerson, CompanyName, RegNO, RegCode, RegisteredCapital, BusinessLicense, RegisterDate, BusnissDeadline, NoDeadLine, Address, BusinessScope, ServiceCompanyCode, InfoSource = 0 } = data
       const selectSubsidiary = this.state.subsidiary.find(item => item.SubsidiaryId === SubsidiaryId) || this.state.subsidiary[0]
       if (NoDeadLine === null) {
         NoDeadLine = 0
@@ -138,6 +138,7 @@ class Company extends React.Component {
           BusnissDeadline,
           NoDeadLine,
           Address,
+          ServiceCompanyCode,
           BusinessScope
         }
       })
