@@ -149,6 +149,9 @@ export const fAgentStatus = (status) => {
   case 2:
     str = '挂起'
     break
+  case 3:
+    str = '服务中'
+    break
   case 5:
     str = '建账中'
     break
