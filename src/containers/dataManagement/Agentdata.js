@@ -1,8 +1,32 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styles from '@/stylus/modifydata'
 import { Row, Col } from 'antd'
 import { fAddedValue, fDate, fMonth, fInfoSource } from '@/utils/filters'
+import http from '../../utils/http'
 export default class AgentData extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      selectCompany: {}
+    }
+    this.getAgentStatus = this.getAgentStatus.bind(this)
+  }
+  static get propTypes () {
+    return {
+      companyId: PropTypes.any.isRequired
+    }
+  }
+  async getAgentStatus () {
+    const { companyId } = this.props
+    const url = `/api/fromAgent/${companyId}`
+    const { status, data } = await http(url)
+    console.log(status)
+    console.log(data)
+  }
+  componentWillMount () {
+    this.getAgentStatus()
+  }
   render () {
     // const data = this.props.data
     const data = {
