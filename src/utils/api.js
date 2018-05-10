@@ -71,3 +71,8 @@ export const fetchDataEditOrderList = (id) => {
 export const saveDataEditOrderList = (payload) => {
   return http('/api/orders/detailswithcontract/save', 'POST', payload)
 }
+
+// 上传签名
+export const getSignkey = () => {
+  return http('/api/signkey')
+}

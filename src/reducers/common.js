@@ -25,6 +25,18 @@ export default handleActions({
       ...state,
       userInfo: payload
     }
+  },
+  'get signkey': (state, { data }) => {
+    return {
+      ...state,
+      signkey: data
+    }
+  },
+  'remove signkey': (state, { data }) => {
+    return {
+      ...state,
+      signkey: data
+    }
   }
 }, {
   ajaxCount: 0,

@@ -4,11 +4,27 @@ import styles from '@/stylus/modifydata'
 import { Row, Col } from 'antd'
 import { fAddedValue, fDate, fMonth, fInfoSource } from '@/utils/filters'
 import http from '../../utils/http'
+// 记账状态
+const ACCOUNT_STATUS_MAP = {
+  1: '正常',
+  2: '挂起',
+  5: '建账中'
+}
+// 是否分配
+const ASSIGN_MAP = {
+  0: '未分配',
+  1: '已分配'
+}
+// 是否分配
+const RECALL_MAP = {
+  0: '是',
+  1: '否'
+}
 export default class AgentData extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      selectCompany: {}
+      data: {}
     }
     this.getAgentStatus = this.getAgentStatus.bind(this)
   }
@@ -21,48 +37,43 @@ export default class AgentData extends React.Component {
     const { companyId } = this.props
     const url = `/api/fromAgent/${companyId}`
     const { status, data } = await http(url)
-    console.log(status)
-    console.log(data)
+    if (status) {
+      this.setState({
+        data
+      })
+    }
   }
   componentWillMount () {
     this.getAgentStatus()
   }
   render () {
-    // const data = this.props.data
-    const data = {
-      id: 12334,
-      businessDate: '2018-09-10',
-      businessUserName: '习大大',
-      accountUserName: '嘻嘻嘻',
-      businessStatus: 1,
-      businessStatus1: 1
-    }
+    const { customerId, businessDate, accountantName, status, isAssign, recall } = this.state.data
     return (
       <div>
         <Row className={styles['mt10']}>
           <Col span={4}>
             <label>序列ID：</label>
-            <span>{data.id}</span>
+            <span>{customerId}</span>
           </Col>
           <Col span={4}>
             <label>开始账期：</label>
-            <span>{fMonth(data.businessDate)}</span>
+            <span>{fMonth(businessDate)}</span>
           </Col>
           <Col span={4}>
             <label>主办会计：</label>
-            <span>{data.accountUserName}</span>
+            <span>{accountantName}</span>
           </Col>
           <Col span={4}>
             <label>是否分配：</label>
-            <span>{data.accountUserName}</span>
+            <span>{ASSIGN_MAP[isAssign]}</span>
           </Col>
           <Col span={4}>
             <label>记账状态：</label>
-            <span>{data.businessDate1}</span>
+            <span>{ACCOUNT_STATUS_MAP[status]}</span>
           </Col>
           <Col span={4}>
             <label>是否建账：</label>
-            <span>{data.businessStatus}</span>
+            <span>{RECALL_MAP[recall]}</span>
           </Col>
         </Row>
       </div>
