@@ -1,5 +1,6 @@
 import React from 'react'
-import { Card, List, Row, Col } from 'antd'
+import _ from 'lodash'
+import { Card, List, Row, Col, Button } from 'antd'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import styles from '@/stylus/serviceCard'
@@ -13,19 +14,44 @@ class CustomerService extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      dataSource: []
+      dataSource: [],
+      pagination: {
+        current: 1,
+        pageSize: 30
+      }
     }
     this.goCustomerInfo = this.goCustomerInfo.bind(this)
     console.log(this.props, 'props')
     // this.props.dispatch(fetchListAction())
   }
   onSearch (res) {
-    console.log(res)
+    console.log(res, 'res')
     let params = {
       companyname: res[0],
       phone: res[1],
       connector: res[2]
     }
+    console.log(params, 'params')
+    const pagination = this.state.pagination
+    if (params.companyname !== res.companyname || params.phone !== res.phone || params.connector !== res.phone) {
+      this.setState({
+        pagination: {
+          current: 1,
+          pageSize: 30
+        }
+      })
+    } else {
+      this.setState({
+        pagination: {
+          current: 0,
+          pageSize: 30
+        }
+      }, () => {
+        pagination.current += 1
+      })
+    }
+    params.limit = pagination.pageSize
+    params.offset = (pagination.current - 1) * pagination.pageSize
     fetchCustomerServiceList(params).then(res => {
       if (res.status) {
         this.setState({
@@ -100,6 +126,12 @@ class CustomerService extends React.Component {
             )}
           />
         </div>
+        {
+          this.state.dataSource.length >= 30 &&
+          <div style={{ textAlign: 'center' }}>
+            <Button type="primary" onClick={this.onSearch.bind(this)}>加载跟更多</Button>
+          </div>
+        }
       </div>
 
     )
