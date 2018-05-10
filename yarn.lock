@@ -6530,6 +6530,12 @@ react-test-renderer@^16.0.0-0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
+react-viewer@^2.4.0:
+  version "2.4.0"
+  resolved "http://registry.npm.taobao.org/react-viewer/download/react-viewer-2.4.0.tgz#1ad102a192b286b3ec8ec63ba904d88ff179e764"
+  dependencies:
+    classnames "^2.2.5"
+
 react@^0.14.0:
   version "0.14.9"
   resolved "http://registry.npm.taobao.org/react/download/react-0.14.9.tgz#9110a6497c49d44ba1c0edd317aec29c2e0d91d1"

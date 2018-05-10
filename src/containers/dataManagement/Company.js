@@ -19,6 +19,7 @@ import {
 } from 'antd'
 import styles from '@/stylus/company'
 import http from '../../utils/http'
+import UploadFile from '../../containers/UploadFile'
 const FormItem = Form.Item
 const Option = Select.Option
 const ButtonGroup = Button.Group
@@ -83,6 +84,7 @@ class Company extends React.Component {
     this.getCompanyDetailByUrl = this.getCompanyDetailByUrl.bind(this)
     this.toggleEdit = this.toggleEdit.bind(this)
     this.toggleModal = this.toggleModal.bind(this)
+    this.licenseChange = this.licenseChange.bind(this)
     this.init = this.init.bind(this)
   }
   static get propTypes () {
@@ -107,8 +109,11 @@ class Company extends React.Component {
     const url = `/api/customer/${companyId}`
     const { status, data } = await http(url)
     if (status) {
-      const { SubsidiaryId, Connector, Mobile, Telephone, AreaCode, SalesId, AddedValue, LegalPerson, CompanyName, RegNO, RegCode, RegisteredCapital, BusinessLicense, RegisterDate, BusnissDeadline, NoDeadLine, Address, BusinessScope, InfoSource = 0 } = data
+      let { SubsidiaryId, Connector, Mobile, Telephone, AreaCode, SalesId, AddedValue, LegalPerson, CompanyName, RegNO, RegCode, RegisteredCapital, BusinessLicense, RegisterDate, BusnissDeadline, NoDeadLine, Address, BusinessScope, InfoSource = 0 } = data
       const selectSubsidiary = this.state.subsidiary.find(item => item.SubsidiaryId === SubsidiaryId) || this.state.subsidiary[0]
+      if (NoDeadLine === null) {
+        NoDeadLine = 0
+      }
       // 初始化选中直营公司
       this.setState({
         selectSubsidiary,
@@ -301,6 +306,21 @@ class Company extends React.Component {
       }
     })
   }
+  // toggle模态框
+  toggleModal () {
+    this.setState({
+      isModalVisible: !this.state.isModalVisible
+    })
+  }
+  // license变更
+  licenseChange (path) {
+    this.state({
+      companyInfo: {
+        ...this.state.companyInfo,
+        BusinessLicense: path
+      }
+    })
+  }
   // 修改公司信息
   toggleEdit (flag) {
     // flag为false，则为保存
@@ -341,12 +361,6 @@ class Company extends React.Component {
         isSpecial: false
       })
     }
-  }
-  // toggle模态框
-  toggleModal () {
-    this.setState({
-      isModalVisible: !this.state.isModalVisible
-    })
   }
   async init () {
     this.getCompany().then(() => {
@@ -596,12 +610,18 @@ class Company extends React.Component {
                     </FormItem>
                   </Col>
                   <Col span={12}>
-                    <label>
-                      营业执照：
-                    </label>
-                    <span>
-                      <img style={{width: 60, height: 'auto'}} src={companyInfo.BusinessLicense} alt="营业执照"/>
-                    </span>
+                    <FormItem
+                      label="营业执照"
+                      labelCol={{span: 3}}
+                      wrapperCol={{span: 21}}
+                    >
+                      {getFieldDecorator('BusinessLicense', {
+                        initialValue: companyInfo.BusinessLicense
+                      })(
+                        <UploadFile additional="?x-oss-process=image/resize,m_lfit,h_30,w_50"/>
+                      )}
+                    </FormItem>
+
                   </Col>
                 </Row>
                 <Row >
@@ -691,7 +711,9 @@ class Company extends React.Component {
                       营业执照：
                     </label>
                     <span>
-                      <img style={{width: 60, height: 'auto'}} src={companyInfo.BusinessLicense} alt="营业执照"/>
+                      {
+                        companyInfo.BusinessLicense ? <img style={{width: 60, height: 'auto'}} src={companyInfo.BusinessLicense} alt="营业执照"/> : null
+                      }
                     </span>
                   </Col>
                 </Row>
